@@ -115,30 +115,30 @@ svg text{font-family:var(--font)}
   <div class="kicker">既存の地図との対応</div>
   <h1>知っている地図との対応：IEC 62304 の V字は、3フェーズのここに重なる</h1>
   <div class="fig">
-    <svg viewBox="0 0 1100 380" role="img" aria-label="IEC 62304のV字モデルとAI-DLCフェーズの対応マップ">
-      <path d="M80,70 L300,290 L520,70" stroke="#333" stroke-width="2.5" fill="none"/>
-      <circle cx="80" cy="70" r="6" fill="#0F62FE"/><circle cx="190" cy="180" r="6" fill="#0F62FE"/><circle cx="300" cy="290" r="6" fill="#0F62FE"/><circle cx="410" cy="180" r="6" fill="#0F62FE"/><circle cx="520" cy="70" r="6" fill="#0F62FE"/>
-      <text class="sub" x="60" y="50">要件定義</text>
-      <text class="sub" x="105" y="200">設計</text>
-      <text class="sub" x="262" y="325">実装</text>
-      <text class="sub" x="425" y="200">結合・テスト</text>
-      <text class="sub" x="440" y="50">適格性確認テスト</text>
-      <path class="arrow-key" d="M560,90 L726,90"/>
-      <text class="sub" x="643" y="75" text-anchor="middle">V字の左側（決める）</text>
-      <path class="arrow-key" d="M560,180 L726,180"/>
-      <text class="sub" x="643" y="165" text-anchor="middle">実装とV字の右側（確かめる）</text>
-      <rect class="box-tint" x="740" y="55" width="340" height="70" rx="10"/>
-      <text class="lbl-key" x="910" y="98" text-anchor="middle">Inception</text>
-      <rect class="box-tint" x="740" y="145" width="340" height="70" rx="10"/>
-      <text class="lbl-key" x="910" y="188" text-anchor="middle">Construction</text>
-      <rect x="740" y="235" width="340" height="70" rx="10" fill="#F4F4F4" stroke="#525252" stroke-width="2" stroke-dasharray="7 5"/>
-      <text class="lbl" x="910" y="278" text-anchor="middle">Operations ＝ 保守・運用</text>
-      <text class="sub" x="740" y="330">Operations は V字の外（リリースも V字の外側の理解）</text>
-      <text class="lbl-reg" x="60" y="372">V字にないもの： Intent ／ 適応型の経路選択 ／ 並走する規制成果物 ／ 保守・運用</text>
+    <svg viewBox="0 0 1100 400" role="img" aria-label="IEC 62304のV字モデルとAI-DLCフェーズの対応マップ">
+      <path d="M70,80 L310,300 L550,80" stroke="#333" stroke-width="2.5" fill="none"/>
+      <circle cx="70" cy="80" r="6" fill="#0F62FE"/><circle cx="190" cy="190" r="6" fill="#0F62FE"/><circle cx="310" cy="300" r="6" fill="#0F62FE"/><circle cx="430" cy="190" r="6" fill="#0F62FE"/><circle cx="550" cy="80" r="6" fill="#0F62FE"/>
+      <text class="sub" x="45" y="58">要件定義</text>
+      <text class="sub" x="98" y="212">設計</text>
+      <text class="sub" x="272" y="335">実装</text>
+      <text class="sub" x="445" y="212">結合・テスト</text>
+      <text class="sub" x="468" y="58">適格性確認テスト</text>
+      <path class="arrow-key" d="M600,112 L712,112"/>
+      <text class="sub" x="656" y="95" text-anchor="middle">V字の左側（決める）</text>
+      <path class="arrow-key" d="M600,202 L712,202"/>
+      <text class="sub" x="656" y="185" text-anchor="middle">実装と右側（確かめる）</text>
+      <rect class="box-tint" x="730" y="77" width="350" height="70" rx="10"/>
+      <text class="lbl-key" x="905" y="120" text-anchor="middle">Inception</text>
+      <rect class="box-tint" x="730" y="167" width="350" height="70" rx="10"/>
+      <text class="lbl-key" x="905" y="210" text-anchor="middle">Construction</text>
+      <rect x="730" y="257" width="350" height="70" rx="10" fill="#F4F4F4" stroke="#525252" stroke-width="2" stroke-dasharray="7 5"/>
+      <text class="lbl" x="905" y="300" text-anchor="middle">Operations ＝ 保守・運用</text>
+      <text class="sub" x="730" y="352">V字に対応なし。リリース（デプロイ）も V字の外で、Operations の中核</text>
+      <text class="lbl-reg" x="45" y="392">V字にないもの： Intent ／ 適応型の経路選択 ／ 並走する規制成果物 ／ 保守・運用</text>
     </svg>
   </div>
   <div class="takeaway">V字が対応するのは Inception と Construction で、検証側もその中にある。Operations は V字の外</div>
-  <div class="note">注記：この対応は近似である。V字は逐次モデル、AI-DLC は承認ゲートを挟んだ反復であり、同じ形ではない。</div>
+  <div class="note">注記：この対応は近似である。V字は逐次モデル、AI-DLC は承認ゲートを挟んだ反復であり、同じ形ではない。適格性確認テストは AI-DLC では Construction の Build and Test が中心で、単独の対応ステージはない。</div>
   <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
 </section>
 
