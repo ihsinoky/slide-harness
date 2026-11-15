@@ -292,32 +292,39 @@ svg text{font-family:var(--font)}
 
 <section class="slide">
   <div class="kicker">プラグイン</div>
-  <h1>プラグインの仕組み：拡張はルールとテンプレートを差し込み、規制成果物を並走させる</h1>
+  <h1>プラグインの仕組み：拡張はプラグインとして合成され、コアを書き換えない</h1>
   <div class="fig">
-    <svg viewBox="0 0 1100 340" role="img" aria-label="規制拡張の差し込み図">
-      <rect class="box-reg" x="400" y="20" width="300" height="90" rx="10"/>
-      <text class="lbl-reg" x="550" y="58" text-anchor="middle">規制拡張</text>
-      <text class="sub" x="550" y="84" text-anchor="middle">ルールファイル ＋ 文書テンプレート</text>
-      <path class="arrow-reg" d="M550,110 L550,164"/>
-      <text class="sub" x="565" y="145">差し込む</text>
-      <rect class="box-tint" x="400" y="170" width="300" height="110" rx="10"/>
-      <text class="lbl-key" x="550" y="215" text-anchor="middle">コアのワークフロー</text>
-      <text class="sub" x="550" y="242" text-anchor="middle">5フェーズの流れ（不変）</text>
-      <path class="arrow" d="M700,200 L790,110"/>
-      <text class="sub" x="712" y="140">成果物</text>
-      <path class="arrow-reg" d="M700,250 L790,262"/>
-      <text class="sub" x="706" y="240">並走して生成</text>
-      <rect class="box" x="800" y="70" width="280" height="80" rx="10"/>
-      <text class="lbl" x="940" y="105" text-anchor="middle">通常の成果物</text>
-      <text class="sub" x="940" y="130" text-anchor="middle">要求・設計・コード・テスト</text>
-      <rect class="box-reg" x="800" y="222" width="280" height="80" rx="10"/>
-      <text class="lbl-reg" x="940" y="257" text-anchor="middle">規制成果物</text>
-      <text class="sub" x="940" y="282" text-anchor="middle">aidlc-docs/regulatory/</text>
-      <text class="sub" x="20" y="330">適用は要求分析で opt-in（IEC 62304／ISO 14971 など9規格）</text>
+    <svg viewBox="0 0 1100 340" role="img" aria-label="v2プラグインの合成図">
+      <rect class="box-reg" x="60" y="20" width="560" height="150" rx="10"/>
+      <text class="lbl-reg" x="340" y="50" text-anchor="middle">医療拡張プラグイン（manifest＝plugin.json が中身を宣言）</text>
+      <rect class="box" x="80" y="66" width="250" height="42" rx="6"/>
+      <text class="sub" x="205" y="92" text-anchor="middle">contributions：既存ステージへ加算</text>
+      <rect class="box" x="350" y="66" width="250" height="42" rx="6"/>
+      <text class="sub" x="475" y="92" text-anchor="middle">scopes：適用範囲・安全クラス</text>
+      <rect class="box" x="80" y="118" width="250" height="42" rx="6"/>
+      <text class="sub" x="205" y="144" text-anchor="middle">sensors：証拠の検査</text>
+      <rect class="box" x="350" y="118" width="250" height="42" rx="6"/>
+      <text class="sub" x="475" y="144" text-anchor="middle">knowledge：文書テンプレート</text>
+      <path class="arrow-reg" d="M340,170 L340,222"/>
+      <text class="sub" x="355" y="202">合成（compose、導入時）</text>
+      <rect class="box-tint" x="60" y="230" width="560" height="80" rx="10"/>
+      <text class="lbl-key" x="340" y="264" text-anchor="middle">コア</text>
+      <text class="sub" x="340" y="290" text-anchor="middle">5フェーズ／33ステージ ・ 書き換え禁止</text>
+      <path class="arrow" d="M620,248 L730,84"/>
+      <path class="arrow-reg" d="M620,272 L730,240"/>
+      <text class="sub" x="640" y="150">成果物</text>
+      <rect class="box" x="740" y="40" width="320" height="80" rx="10"/>
+      <text class="lbl" x="900" y="74" text-anchor="middle">通常の成果物</text>
+      <text class="sub" x="900" y="99" text-anchor="middle">要求・設計・コード・テスト</text>
+      <rect class="box-reg" x="740" y="190" width="320" height="100" rx="10"/>
+      <text class="lbl-reg" x="900" y="224" text-anchor="middle">規制成果物</text>
+      <text class="sub" x="900" y="249" text-anchor="middle">ステージの成果物として名前付きで宣言</text>
+      <text class="sub" x="900" y="272" text-anchor="middle">intent ごとの実行記録に残る</text>
+      <text class="sub" x="60" y="332">対象は IEC 62304／ISO 14971 など9規格。プラグインを無効化すれば素のコアに戻る</text>
     </svg>
   </div>
-  <div class="takeaway">コア側の変更は最小で、「ステージを閉じる前に拡張の成果物を生成する」という必須の決まりを1節足すことが中心</div>
-  <div class="note">ルールとテンプレートは、組織の品質マネジメントシステム（QMS）に合わせて編集できる。</div>
+  <div class="takeaway">プラグインは「足すだけ」でコアを書き換えない。だから取り外せば元に戻る</div>
+  <div class="note">現行の医療拡張 v1.0.0 は旧構成向けのパッケージで、v2 プラグインとして使うには再構成の設計が要る（移植案は対比資料に整理済み、未実装）。</div>
   <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
 </section>
 
