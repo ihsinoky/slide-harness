@@ -5,13 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{{DECK_TITLE}}</title>
 <style>
-/* slide-harness 標準テンプレート（デジタル庁デザインシステム DADS のトークンに基づく）
-   キーカラー Blue-900 #0017C1 / 淡色 Blue-50 #E8F1FE, Blue-100 #D9E6FF / 本文 #333333 / 罫線 #949494 */
+/* slide-harness 標準テンプレート（IBM Carbon Design System のトークンに基づく）
+   キーカラー Blue 60 #0F62FE / 淡色 Blue 10 #EDF5FF / 本文 Gray 100 #161616 / 罫線 Gray 50 #8D8D8D */
 :root{
-  --key:#0017C1; --key-dark:#00118F; --tint:#E8F1FE; --tint2:#D9E6FF;
-  --ink:#333333; --ink-sub:#595959; --line:#949494; --paper:#FFFFFF;
+  --key:#0F62FE; --key-dark:#0043CE; --tint:#EDF5FF; --tint2:#D0E2FF;
+  --ink:#161616; --ink-sub:#525252; --line:#8D8D8D; --paper:#FFFFFF;
   --warn:#B3261E; --focus:#FFD43D;
-  --font:"Noto Sans JP","Hiragino Kaku Gothic ProN","Yu Gothic UI",sans-serif;
+  --font:"IBM Plex Sans JP","IBM Plex Sans","Noto Sans JP","Hiragino Kaku Gothic ProN",sans-serif;
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html,body{height:100%}
@@ -28,7 +28,7 @@ body{font-family:var(--font);color:var(--ink);background:#3A3A3A;line-height:1.7
 .slide .fig svg{max-width:100%;max-height:100%}
 .slide .takeaway{
   margin-top:28px;background:var(--tint);border-left:6px solid var(--key);
-  padding:16px 20px;font-size:20px;font-weight:700;line-height:1.6;
+  padding:16px 20px;font-size:20px;font-weight:700;line-height:1.6;border-radius:0;background:#F4F4F4;
 }
 .slide .note{margin-top:14px;font-size:16px;color:var(--ink-sub);line-height:1.7}
 .slide .pageno{position:absolute;right:72px;bottom:28px;font-size:14px;color:var(--ink-sub)}
@@ -73,7 +73,7 @@ svg text{font-family:var(--font)}
       <svg viewBox="0 0 1100 360" role="img" aria-label="{{FIG_ALT}}">
         <defs>
           <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#333333"/></marker>
-          <marker id="ahk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0017C1"/></marker>
+          <marker id="ahk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0F62FE"/></marker>
         </defs>
         <!-- ここに図を描く -->
       </svg>
