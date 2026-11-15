@@ -387,25 +387,42 @@ svg text{font-family:var(--font)}
 
 </div>
 <style>
-.toolbar{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;display:flex;gap:8px;align-items:center;z-index:20;background:rgba(22,22,22,.85);padding:8px 12px;border-radius:10px}
+.toolbar{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;display:flex;gap:8px;align-items:center;z-index:20;background:rgba(22,22,22,.88);padding:8px 12px;border-radius:10px}
 .toolbar button{font-family:var(--font);font-size:14px;font-weight:700;color:var(--key);background:#fff;border:2px solid var(--key);border-radius:6px;padding:6px 14px;cursor:pointer}
 .toolbar button.on{background:var(--key);color:#fff}
 .toolbar .count{color:#fff;font-size:14px;font-weight:700;min-width:64px;text-align:center}
-.editpanel{position:fixed;right:18px;bottom:76px;z-index:20;background:#fff;border:2px solid var(--key);border-radius:10px;padding:14px 16px;display:none;width:280px;font-size:14px;color:var(--ink)}
-body.editing .editpanel{display:block}
-.editpanel label{display:block;margin:8px 0 2px;font-weight:700}
-.editpanel input[type=range]{width:100%}
-.editpanel .row{display:flex;gap:8px;margin-top:12px}
-.editpanel button{flex:1;font-family:var(--font);font-size:14px;font-weight:700;color:var(--key);background:#fff;border:2px solid var(--key);border-radius:6px;padding:6px;cursor:pointer}
-body.editing .slide [contenteditable]{outline:2px dashed var(--key);outline-offset:2px}
-body.editing .slide svg text{cursor:text}
+.slidepanel{position:fixed;left:14px;top:50%;transform:translateY(-50%);z-index:20;display:none;flex-direction:column;gap:6px;background:rgba(22,22,22,.88);padding:10px;border-radius:10px;max-height:86vh;overflow:auto}
+body.editing .slidepanel{display:flex}
+.slidepanel button{font-family:var(--font);font-size:13px;font-weight:700;color:var(--ink);background:#fff;border:2px solid transparent;border-radius:6px;padding:5px 10px;cursor:pointer;text-align:left}
+.slidepanel button.cur{border-color:var(--key);color:var(--key)}
+.slidepanel .ops{display:flex;gap:4px;flex-wrap:wrap}
+.slidepanel .ops button{flex:1;text-align:center;padding:5px 4px}
+.prop{position:fixed;right:14px;top:50%;transform:translateY(-50%);z-index:20;background:#fff;border:2px solid var(--key);border-radius:10px;padding:14px 16px;display:none;width:296px;font-size:14px;color:var(--ink);max-height:88vh;overflow:auto}
+body.editing .prop{display:block}
+.prop h3{font-size:15px;margin-bottom:8px}
+.prop label{display:block;margin:9px 0 2px;font-weight:700}
+.prop input[type=text],.prop input[type=number],.prop textarea{width:100%;font-family:var(--font);font-size:14px;padding:5px 7px;border:1.5px solid var(--line);border-radius:5px}
+.prop textarea{height:56px}
+.prop input[type=color]{width:52px;height:30px;border:1.5px solid var(--line);border-radius:5px;background:#fff;vertical-align:middle}
+.prop .swatches{display:inline-flex;gap:4px;margin-left:6px;vertical-align:middle}
+.prop .swatches button{width:22px;height:22px;border-radius:4px;border:1.5px solid var(--line);cursor:pointer;padding:0}
+.prop .row{display:flex;gap:6px;margin-top:10px}
+.prop .row button{flex:1;font-family:var(--font);font-size:13px;font-weight:700;color:var(--key);background:#fff;border:2px solid var(--key);border-radius:6px;padding:6px 2px;cursor:pointer}
+.prop .addrow{display:flex;gap:6px;margin-top:6px}
+.prop .addrow button{flex:1;font-family:var(--font);font-size:13px;font-weight:700;color:#fff;background:var(--key);border:2px solid var(--key);border-radius:6px;padding:6px 2px;cursor:pointer}
+.prop .hint{color:var(--ink-sub);margin-top:10px;line-height:1.6}
+.prop .xy{display:flex;gap:6px}.prop .xy div{flex:1}
+body.editing .slide svg *{cursor:pointer}
+body.editing .slide .txtsel{outline:3px solid var(--focus);outline-offset:2px}
+.selbox{position:fixed;z-index:15;border:2.5px solid var(--focus);border-radius:3px;pointer-events:none;display:none}
+.txtedit{position:fixed;z-index:40;font-family:var(--font);border:2.5px solid var(--key);border-radius:4px;padding:4px 6px;background:#fff;color:var(--ink)}
 .overview{position:fixed;inset:0;background:rgba(22,22,22,.94);z-index:30;display:none;overflow:auto;padding:28px}
 .overview.open{display:flex;flex-wrap:wrap;gap:20px;align-content:flex-start;justify-content:center}
 .overview .thumb{width:384px;height:216px;overflow:hidden;position:relative;cursor:pointer;border:3px solid transparent;border-radius:6px;flex:none}
 .overview .thumb:hover{border-color:var(--key)}
 .overview .thumb .slide{display:flex;position:absolute;left:0;top:0;transform:scale(.3);transform-origin:top left}
 .overview .thumb .no{position:absolute;right:8px;bottom:6px;color:#fff;background:rgba(0,0,0,.6);padding:2px 8px;border-radius:4px;font-size:13px;z-index:2}
-@media print{.toolbar,.editpanel,.overview{display:none!important}}
+@media print{.toolbar,.slidepanel,.prop,.selbox,.overview,.txtedit{display:none!important}}
 </style>
 <div class="toolbar">
   <button id="tb-prev" type="button">← 前へ</button>
@@ -415,56 +432,46 @@ body.editing .slide svg text{cursor:text}
   <button id="tb-ov" type="button">一覧</button>
   <button id="tb-edit" type="button">編集</button>
 </div>
-<div class="editpanel" id="editpanel">
-  <div><strong>微調整（現在のスライド）</strong></div>
-  <label>図の大きさ <span id="v-fig"></span></label>
-  <input type="range" id="r-fig" min="60" max="130" value="100">
-  <label>タイトルの文字 <span id="v-title"></span></label>
-  <input type="range" id="r-title" min="28" max="48" value="38">
-  <label>要点の文字 <span id="v-take"></span></label>
-  <input type="range" id="r-take" min="15" max="26" value="20">
-  <div class="row">
-    <button id="ep-reset" type="button">このスライドをリセット</button>
-    <button id="ep-save" type="button">HTMLで保存</button>
-  </div>
-  <div style="margin-top:10px;color:var(--ink-sub)">本文はクリックで直接編集できます。図の中の文字はダブルクリックで編集できます。</div>
-</div>
+<div class="slidepanel" id="slidepanel"></div>
+<div class="prop" id="prop"></div>
+<div class="selbox" id="selbox"></div>
 <div class="overview" id="overview"></div>
 <script>
 (function(){
-  var slides=[].slice.call(document.querySelectorAll('.slide'));
-  var i=0, editing=false;
+  var stage=document.getElementById('stage');
+  var selbox=document.getElementById('selbox');
+  var prop=document.getElementById('prop');
+  var i=0, editing=false, sel=null, selIsSvg=false;
+  var undoStack=[], redoStack=[];
+  function QS(){return [].slice.call(stage.querySelectorAll('.slide'));}
+  function cur(){return QS()[i];}
+  function snapshot(){undoStack.push(stage.innerHTML); if(undoStack.length>60)undoStack.shift(); redoStack=[];}
+  function restore(html){stage.innerHTML=html; clearSel(); renumber(); show(Math.min(i,QS().length-1)); buildSlidePanel();}
+  function undo(){if(!undoStack.length)return; redoStack.push(stage.innerHTML); restore(undoStack.pop());}
+  function redo(){if(!redoStack.length)return; undoStack.push(stage.innerHTML); restore(redoStack.pop());}
+  function renumber(){QS().forEach(function(el,k){var p=el.querySelector('.pageno'); if(p)p.textContent=(k+1)+' / '+QS().length;});}
   function fit(){
     if(document.body.classList.contains('overview-open'))return;
     var s=Math.min(window.innerWidth/1320,window.innerHeight/760,1.4);
-    slides.forEach(function(el){el.style.transform='scale('+s+')';});
-  }
-  function syncPanel(){
-    var sl=slides[i]; if(!sl)return;
-    var svg=sl.querySelector('.fig svg');
-    var fig=100; if(svg&&svg.style.transform){var m=svg.style.transform.match(/scale\(([\d.]+)\)/); if(m)fig=Math.round(parseFloat(m[1])*100);}
-    var h1=sl.querySelector('h1'); var tk=sl.querySelector('.takeaway');
-    document.getElementById('r-fig').value=fig; document.getElementById('v-fig').textContent=fig+'%';
-    var tv=h1?(parseInt(h1.style.fontSize)||38):38; document.getElementById('r-title').value=tv; document.getElementById('v-title').textContent=tv+'px';
-    var kv=tk?(parseInt(tk.style.fontSize)||20):20; document.getElementById('r-take').value=kv; document.getElementById('v-take').textContent=kv+'px';
+    QS().forEach(function(el){el.style.transform='scale('+s+')';});
   }
   function show(n){
-    i=Math.max(0,Math.min(slides.length-1,n));
-    slides.forEach(function(el,k){el.classList.toggle('active',k===i);});
-    document.getElementById('tb-count').textContent=(i+1)+' / '+slides.length;
-    var pr=document.getElementById('progress'); if(pr)pr.style.width=((i+1)/slides.length*100)+'%';
-    fit(); syncPanel();
+    var sl=QS(); i=Math.max(0,Math.min(sl.length-1,n));
+    sl.forEach(function(el,k){el.classList.toggle('active',k===i);});
+    document.getElementById('tb-count').textContent=(i+1)+' / '+sl.length;
+    var pr=document.getElementById('progress'); if(pr)pr.style.width=((i+1)/sl.length*100)+'%';
+    fit(); clearSel(); buildSlidePanel();
   }
-  slides.forEach(function(el,k){var p=el.querySelector('.pageno'); if(p)p.textContent=(k+1)+' / '+slides.length;});
+  /* ---------- slideshow ---------- */
   document.getElementById('tb-prev').addEventListener('click',function(){show(i-1);});
   document.getElementById('tb-next').addEventListener('click',function(){show(i+1);});
   document.getElementById('tb-fs').addEventListener('click',function(){
-    if(document.fullscreenElement){document.exitFullscreen();}else{document.documentElement.requestFullscreen&&document.documentElement.requestFullscreen();}
+    if(document.fullscreenElement)document.exitFullscreen(); else if(document.documentElement.requestFullscreen)document.documentElement.requestFullscreen();
   });
   var ov=document.getElementById('overview');
   function buildOverview(){
     ov.innerHTML='';
-    slides.forEach(function(el,k){
+    QS().forEach(function(el,k){
       var t=document.createElement('div'); t.className='thumb';
       var c=el.cloneNode(true); c.classList.add('active'); c.style.transform='scale(.3)';
       t.appendChild(c);
@@ -476,64 +483,274 @@ body.editing .slide svg text{cursor:text}
   function openOverview(){buildOverview(); ov.classList.add('open'); document.body.classList.add('overview-open');}
   function closeOverview(){ov.classList.remove('open'); document.body.classList.remove('overview-open'); fit();}
   document.getElementById('tb-ov').addEventListener('click',function(){ov.classList.contains('open')?closeOverview():openOverview();});
+  stage.addEventListener('click',function(e){
+    if(editing||ov.classList.contains('open'))return;
+    if(e.target.closest('.slide')){ if(e.clientX>window.innerWidth/2)show(i+1); else show(i-1); }
+  });
+  /* ---------- edit mode ---------- */
   var editBtn=document.getElementById('tb-edit');
   function setEditing(on){
     editing=on; document.body.classList.toggle('editing',on); editBtn.classList.toggle('on',on);
-    document.querySelectorAll('.slide .kicker,.slide h1,.slide .takeaway,.slide .note').forEach(function(el){
-      if(on){el.setAttribute('contenteditable','true');}else{el.removeAttribute('contenteditable');}
-    });
+    if(!on)clearSel(); buildSlidePanel();
   }
   editBtn.addEventListener('click',function(){setEditing(!editing);});
-  document.addEventListener('dblclick',function(e){
+  function buildSlidePanel(){
+    var sp=document.getElementById('slidepanel'); sp.innerHTML='';
+    QS().forEach(function(el,k){
+      var b=document.createElement('button'); b.textContent=(k+1)+'. '+((el.querySelector('h1')||{}).textContent||'（無題）').slice(0,18);
+      if(k===i)b.className='cur';
+      b.addEventListener('click',function(){show(k);});
+      sp.appendChild(b);
+    });
+    var ops=document.createElement('div'); ops.className='ops';
+    [['＋ 追加',addSlide],['複製',dupSlide],['削除',delSlide],['↑',function(){moveSlide(-1);}],['↓',function(){moveSlide(1);} ]].forEach(function(pair){
+      var b=document.createElement('button'); b.textContent=pair[0]; b.addEventListener('click',pair[1]); ops.appendChild(b);
+    });
+    sp.appendChild(ops);
+  }
+  function blankSlide(){
+    var s=document.createElement('section'); s.className='slide';
+    s.innerHTML='<div class="kicker">見出し</div><h1>タイトルを入力</h1><div class="fig"><svg viewBox="0 0 1100 340" role="img"></svg></div><div class="takeaway">要点を入力</div><div class="deckname"></div><div class="pageno"></div>';
+    var dn=cur()&&cur().querySelector('.deckname'); if(dn)s.querySelector('.deckname').textContent=dn.textContent;
+    return s;
+  }
+  function addSlide(){snapshot(); var s=blankSlide(); cur().after(s); renumber(); show(i+1);}
+  function dupSlide(){snapshot(); var c=cur().cloneNode(true); cur().after(c); renumber(); show(i+1);}
+  function delSlide(){if(QS().length<=1)return; snapshot(); var idx=i; cur().remove(); renumber(); show(Math.min(idx,QS().length-1));}
+  function moveSlide(d){var t=i+d; if(t<0||t>=QS().length)return; snapshot(); var el=cur(); if(d<0)el.previousElementSibling.before(el); else el.nextElementSibling.after(el); renumber(); show(t);}
+  /* ---------- selection ---------- */
+  function clearSel(){
+    if(sel&&!selIsSvg)sel.classList.remove('txtsel');
+    sel=null; selbox.style.display='none'; if(editing)renderProp(null);
+  }
+  function placeSelbox(){
+    if(!sel)return; var r=sel.getBoundingClientRect();
+    selbox.style.display='block'; selbox.style.left=(r.left-3)+'px'; selbox.style.top=(r.top-3)+'px';
+    selbox.style.width=(r.width+6)+'px'; selbox.style.height=(r.height+6)+'px';
+  }
+  function select(el,isSvg){
+    if(sel&&!selIsSvg)sel.classList.remove('txtsel');
+    sel=el; selIsSvg=isSvg;
+    if(!isSvg)el.classList.add('txtsel');
+    placeSelbox(); renderProp(el);
+  }
+  function topSvgChild(el,svg){while(el&&el.parentNode!==svg)el=el.parentNode; return el;}
+  /* drag */
+  var drag=null;
+  stage.addEventListener('pointerdown',function(e){
     if(!editing)return;
-    var t=e.target.closest?e.target.closest('svg text, svg tspan'):null;
-    if(!t)return;
-    var cur=t.textContent; var nv=window.prompt('図の中の文字を編集',cur);
-    if(nv!==null&&nv!==cur){t.textContent=nv;}
+    var slideEl=e.target.closest('.slide'); if(!slideEl||slideEl!==cur())return;
+    var svg=e.target.closest('svg');
+    if(svg&&svg.closest('.fig')){
+      var el=topSvgChild(e.target,svg);
+      if(!el||el===svg)return;
+      select(el,true);
+      drag={el:el,sx:e.clientX,sy:e.clientY,moved:false,svg:svg};
+      e.preventDefault();
+    }else{
+      var txt=e.target.closest('.kicker,h1,.takeaway,.note');
+      if(txt){select(txt,false);} else clearSel();
+    }
   });
-  function curFigSvg(){return slides[i].querySelector('.fig svg');}
-  document.getElementById('r-fig').addEventListener('input',function(e){
-    var v=e.target.value; document.getElementById('v-fig').textContent=v+'%';
-    var svg=curFigSvg(); if(svg){svg.style.transform='scale('+(v/100)+')'; svg.style.transformOrigin='center center';}
+  window.addEventListener('pointermove',function(e){
+    if(!drag)return;
+    var dx=e.clientX-drag.sx, dy=e.clientY-drag.sy;
+    if(Math.abs(dx)+Math.abs(dy)>2&&!drag.moved){snapshot(); drag.moved=true;}
+    if(!drag.moved)return;
+    var r=drag.svg.getBoundingClientRect(); var vb=drag.svg.viewBox.baseVal;
+    var f=(vb&&vb.width? vb.width:1100)/r.width;
+    var t=getT(drag.el); setT(drag.el,t.x+dx*f,t.y+dy*f);
+    drag.sx=e.clientX; drag.sy=e.clientY; placeSelbox(); syncXY();
   });
-  document.getElementById('r-title').addEventListener('input',function(e){
-    var v=e.target.value; document.getElementById('v-title').textContent=v+'px';
-    var h1=slides[i].querySelector('h1'); if(h1)h1.style.fontSize=v+'px';
+  window.addEventListener('pointerup',function(){drag=null;});
+  function getT(el){
+    var tr=el.getAttribute('transform')||''; var m=tr.match(/translate\(\s*([-\d.]+)[ ,]+([-\d.]+)\s*\)/);
+    return {x:m?parseFloat(m[1]):0, y:m?parseFloat(m[2]):0, rest:tr.replace(/translate\([^)]*\)/,'').trim()};
+  }
+  function setT(el,x,y){
+    var t=getT(el); var s='translate('+Math.round(x*10)/10+' '+Math.round(y*10)/10+')'; if(t.rest)s+=' '+t.rest;
+    el.setAttribute('transform',s);
+  }
+  /* inline text edit */
+  stage.addEventListener('dblclick',function(e){
+    if(!editing)return;
+    var target=null, isSvg=false;
+    var svg=e.target.closest('svg');
+    if(svg&&svg.closest('.fig')){target=e.target.closest('text,tspan'); isSvg=true;}
+    if(!target){var txt=e.target.closest('.kicker,h1,.takeaway,.note'); if(txt)target=txt;}
+    if(!target)return;
+    e.preventDefault();
+    var r=target.getBoundingClientRect();
+    var ta=document.createElement('textarea'); ta.className='txtedit'; ta.value=target.textContent;
+    ta.style.left=r.left+'px'; ta.style.top=r.top+'px'; ta.style.width=Math.max(160,r.width+30)+'px'; ta.style.height=Math.max(36,r.height+14)+'px';
+    ta.style.fontSize=(isSvg?16:18)+'px';
+    document.body.appendChild(ta); ta.focus(); ta.select();
+    var done=false;
+    function commit(save){
+      if(done)return; done=true;
+      if(save&&ta.value!==target.textContent){snapshot(); target.textContent=ta.value;}
+      ta.remove(); placeSelbox(); buildSlidePanel();
+    }
+    ta.addEventListener('blur',function(){commit(true);});
+    ta.addEventListener('keydown',function(ev){if(ev.key==='Enter'&&(ev.metaKey||ev.ctrlKey))commit(true); if(ev.key==='Escape')commit(false); ev.stopPropagation();});
   });
-  document.getElementById('r-take').addEventListener('input',function(e){
-    var v=e.target.value; document.getElementById('v-take').textContent=v+'px';
-    var tk=slides[i].querySelector('.takeaway'); if(tk)tk.style.fontSize=v+'px';
-  });
-  document.getElementById('ep-reset').addEventListener('click',function(){
-    var sl=slides[i]; var svg=sl.querySelector('.fig svg'); if(svg)svg.style.transform='';
-    var h1=sl.querySelector('h1'); if(h1)h1.style.fontSize='';
-    var tk=sl.querySelector('.takeaway'); if(tk)tk.style.fontSize='';
-    syncPanel();
-  });
-  document.getElementById('ep-save').addEventListener('click',function(){
+  /* ---------- property panel ---------- */
+  var PALETTE=['#0F62FE','#161616','#525252','#6929C4','#B3261E','#FFFFFF','#EDF5FF','#F4F4F4'];
+  function colorRow(label,get,set){
+    var wrap=document.createElement('div');
+    var lb=document.createElement('label'); lb.textContent=label; wrap.appendChild(lb);
+    var c=document.createElement('input'); c.type='color'; c.value=toHex(get());
+    c.addEventListener('input',function(){snapshotSoft(); set(c.value); placeSelbox();});
+    wrap.appendChild(c);
+    var sw=document.createElement('span'); sw.className='swatches';
+    PALETTE.forEach(function(p){var b=document.createElement('button'); b.style.background=p; b.addEventListener('click',function(){snapshot(); set(p); c.value=p; placeSelbox();}); sw.appendChild(b);});
+    wrap.appendChild(sw);
+    return wrap;
+  }
+  var softSnap=false;
+  function snapshotSoft(){if(softSnap)return; softSnap=true; snapshot(); setTimeout(function(){softSnap=false;},800);}
+  function toHex(v){
+    if(!v)return '#000000';
+    if(v.charAt(0)==='#')return v.length===4? '#'+v[1]+v[1]+v[2]+v[2]+v[3]+v[3] : v;
+    var m=v.match(/\d+/g); if(!m)return '#000000';
+    return '#'+m.slice(0,3).map(function(n){return ('0'+parseInt(n).toString(16)).slice(-2);}).join('');
+  }
+  function numRow(label,val,min,max,apply){
+    var wrap=document.createElement('div');
+    var lb=document.createElement('label'); lb.textContent=label; wrap.appendChild(lb);
+    var inp=document.createElement('input'); inp.type='number'; inp.value=Math.round(val); if(min!==undefined)inp.min=min; if(max!==undefined)inp.max=max;
+    inp.addEventListener('change',function(){snapshot(); apply(parseFloat(inp.value)||0); placeSelbox();});
+    wrap.appendChild(inp); return wrap;
+  }
+  function renderProp(el){
+    prop.innerHTML='';
+    var h=document.createElement('h3'); h.textContent='編集パネル'; prop.appendChild(h);
+    var addH=document.createElement('label'); addH.textContent='図に要素を追加'; prop.appendChild(addH);
+    var addRow=document.createElement('div'); addRow.className='addrow';
+    [['テキスト',addText],['四角',addRect],['矢印',addArrow]].forEach(function(p){
+      var b=document.createElement('button'); b.textContent=p[0]; b.addEventListener('click',p[1]); addRow.appendChild(b);
+    });
+    prop.appendChild(addRow);
+    var row0=document.createElement('div'); row0.className='row';
+    [['元に戻す',undo],['やり直し',redo],['HTMLで保存',saveHtml]].forEach(function(p){
+      var b=document.createElement('button'); b.textContent=p[0]; b.addEventListener('click',p[1]); row0.appendChild(b);
+    });
+    prop.appendChild(row0);
+    if(!el){
+      var hint=document.createElement('div'); hint.className='hint';
+      hint.textContent='スライド上の要素をクリックすると、ここで編集できます。ドラッグで移動、ダブルクリックで文字の編集、Deleteキーで削除、矢印キーで微調整（Shiftで大きく）。左のパネルでスライドの追加・複製・削除・並べ替えができます。';
+      prop.appendChild(hint); return;
+    }
+    var tag=el.tagName.toLowerCase();
+    /* position */
+    if(selIsSvg){
+      var t=getT(el);
+      var xy=document.createElement('div'); xy.className='xy';
+      var xw=document.createElement('div'); var xl=document.createElement('label'); xl.textContent='X（移動）'; var xi=document.createElement('input'); xi.type='number'; xi.id='pp-x'; xi.value=Math.round(t.x);
+      var yw=document.createElement('div'); var yl=document.createElement('label'); yl.textContent='Y（移動）'; var yi=document.createElement('input'); yi.type='number'; yi.id='pp-y'; yi.value=Math.round(t.y);
+      function applyXY(){var tt=getT(el); setT(el,parseFloat(xi.value)||0,parseFloat(yi.value)||0); placeSelbox();}
+      xi.addEventListener('change',function(){snapshot(); applyXY();}); yi.addEventListener('change',function(){snapshot(); applyXY();});
+      xw.appendChild(xl); xw.appendChild(xi); yw.appendChild(yl); yw.appendChild(yi); xy.appendChild(xw); xy.appendChild(yw); prop.appendChild(xy);
+    }
+    if(tag==='text'||tag==='tspan'||!selIsSvg){
+      var lb=document.createElement('label'); lb.textContent='テキスト'; prop.appendChild(lb);
+      var ta=document.createElement('textarea'); ta.value=el.textContent;
+      ta.addEventListener('change',function(){snapshot(); el.textContent=ta.value; placeSelbox(); buildSlidePanel();});
+      prop.appendChild(ta);
+      var fs=parseFloat(selIsSvg?(el.getAttribute('font-size')||getComputedStyle(el).fontSize):getComputedStyle(el).fontSize)||16;
+      prop.appendChild(numRow('文字サイズ',fs,8,80,function(v){snapshotSoft(); if(selIsSvg)el.setAttribute('font-size',v); else el.style.fontSize=v+'px'; placeSelbox();}));
+      prop.appendChild(colorRow('文字の色',function(){return selIsSvg?(el.getAttribute('fill')||getComputedStyle(el).fill):el.style.color||getComputedStyle(el).color;},function(v){if(selIsSvg)el.setAttribute('fill',v); else el.style.color=v;}));
+    }
+    if(selIsSvg&&(tag==='rect'||tag==='circle'||tag==='ellipse')){
+      if(tag==='rect'){
+        prop.appendChild(numRow('幅',parseFloat(el.getAttribute('width'))||0,4,1200,function(v){el.setAttribute('width',v); placeSelbox();}));
+        prop.appendChild(numRow('高さ',parseFloat(el.getAttribute('height'))||0,4,800,function(v){el.setAttribute('height',v); placeSelbox();}));
+      }
+      prop.appendChild(colorRow('塗りの色',function(){return el.getAttribute('fill')||getComputedStyle(el).fill;},function(v){el.setAttribute('fill',v);}));
+      prop.appendChild(colorRow('線の色',function(){return el.getAttribute('stroke')||getComputedStyle(el).stroke;},function(v){el.setAttribute('stroke',v);}));
+      prop.appendChild(numRow('線の太さ',parseFloat(el.getAttribute('stroke-width'))||1.5,0,10,function(v){el.setAttribute('stroke-width',v);}));
+    }
+    if(selIsSvg&&(tag==='path'||tag==='line')){
+      prop.appendChild(colorRow('線の色',function(){return el.getAttribute('stroke')||getComputedStyle(el).stroke;},function(v){el.setAttribute('stroke',v);}));
+      prop.appendChild(numRow('線の太さ',parseFloat(el.getAttribute('stroke-width'))||2,0,10,function(v){el.setAttribute('stroke-width',v);}));
+    }
+    var row=document.createElement('div'); row.className='row';
+    var bd=document.createElement('button'); bd.textContent='複製'; bd.addEventListener('click',function(){
+      snapshot(); var c=el.cloneNode(true);
+      if(selIsSvg){var t=getT(c); setT(c,t.x+16,t.y+16); el.after(c); select(c,true);}
+      else{el.after(c); select(c,false);}
+    });
+    var bx=document.createElement('button'); bx.textContent='削除'; bx.addEventListener('click',function(){snapshot(); el.remove(); clearSel();});
+    row.appendChild(bd); row.appendChild(bx); prop.appendChild(row);
+  }
+  function syncXY(){
+    if(!sel||!selIsSvg)return; var t=getT(sel);
+    var xi=document.getElementById('pp-x'), yi=document.getElementById('pp-y');
+    if(xi)xi.value=Math.round(t.x); if(yi)yi.value=Math.round(t.y);
+  }
+  function figSvg(){return cur()&&cur().querySelector('.fig svg');}
+  function addText(){
+    var svg=figSvg(); if(!svg)return; snapshot();
+    var t=document.createElementNS('http://www.w3.org/2000/svg','text');
+    t.setAttribute('x',550); t.setAttribute('y',170); t.setAttribute('text-anchor','middle');
+    t.setAttribute('class','lbl'); t.textContent='テキスト';
+    svg.appendChild(t); select(t,true);
+  }
+  function addRect(){
+    var svg=figSvg(); if(!svg)return; snapshot();
+    var r=document.createElementNS('http://www.w3.org/2000/svg','rect');
+    r.setAttribute('x',450); r.setAttribute('y',130); r.setAttribute('width',200); r.setAttribute('height',80); r.setAttribute('rx',10);
+    r.setAttribute('class','box');
+    svg.appendChild(r); select(r,true);
+  }
+  function addArrow(){
+    var svg=figSvg(); if(!svg)return; snapshot();
+    var p=document.createElementNS('http://www.w3.org/2000/svg','path');
+    p.setAttribute('d','M450,170 L650,170'); p.setAttribute('class','arrow');
+    svg.appendChild(p); select(p,true);
+  }
+  function saveHtml(){
     setEditing(false); closeOverview();
     var clone=document.documentElement.cloneNode(true);
     clone.querySelectorAll('[contenteditable]').forEach(function(el){el.removeAttribute('contenteditable');});
+    var cb=clone.querySelector('body'); if(cb)cb.classList.remove('editing','overview-open');
     var html='<!DOCTYPE html>\n'+clone.outerHTML;
     var blob=new Blob([html],{type:'text/html'}); var a=document.createElement('a');
     a.href=URL.createObjectURL(blob); a.download='slides.html'; a.click();
     setTimeout(function(){URL.revokeObjectURL(a.href);},2000);
-  });
+  }
+  /* ---------- keyboard ---------- */
   document.addEventListener('keydown',function(e){
-    if(editing&&(e.target.isContentEditable||e.target.tagName==='INPUT'))return;
+    var inField=/INPUT|TEXTAREA/.test(document.activeElement&&document.activeElement.tagName||'')||(document.activeElement&&document.activeElement.isContentEditable);
+    if(editing&&(e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='z'){e.preventDefault(); if(e.shiftKey)redo(); else undo(); return;}
+    if(editing&&(e.ctrlKey||e.metaKey)&&e.key.toLowerCase()==='y'){e.preventDefault(); redo(); return;}
+    if(editing&&sel&&!inField){
+      if(e.key==='Delete'||e.key==='Backspace'){e.preventDefault(); snapshot(); sel.remove(); clearSel(); return;}
+      var step=e.shiftKey?10:1, used=true;
+      if(e.key==='ArrowLeft')nudge(-step,0); else if(e.key==='ArrowRight')nudge(step,0);
+      else if(e.key==='ArrowUp')nudge(0,-step); else if(e.key==='ArrowDown')nudge(0,step); else used=false;
+      if(used){e.preventDefault(); return;}
+    }
+    if(inField)return;
     if(e.key==='ArrowRight'||e.key===' '){e.preventDefault(); show(i+1);}
     else if(e.key==='ArrowLeft'){show(i-1);}
     else if(e.key==='Home'){show(0);}
-    else if(e.key==='End'){show(slides.length-1);}
-    else if(e.key==='Escape'){closeOverview();}
+    else if(e.key==='End'){show(QS().length-1);}
+    else if(e.key==='Escape'){closeOverview(); if(editing)setEditing(false);}
     else if(e.key==='o'||e.key==='O'){ov.classList.contains('open')?closeOverview():openOverview();}
   });
-  document.getElementById('stage').addEventListener('click',function(e){
-    if(editing||ov.classList.contains('open'))return;
-    if(e.target.closest('.slide')){ if(e.clientX>window.innerWidth/2)show(i+1); else show(i-1); }
-  });
-  window.addEventListener('resize',fit);
-  show(0);
+  var nudgeT=null;
+  function nudge(dx,dy){
+    if(!sel||!selIsSvg)return;
+    if(!nudgeT)snapshot();
+    clearTimeout(nudgeT); nudgeT=setTimeout(function(){nudgeT=null;},600);
+    var t=getT(sel); setT(sel,t.x+dx,t.y+dy); placeSelbox(); syncXY();
+  }
+  window.addEventListener('resize',function(){fit(); placeSelbox();});
+  renumber();
+  var h=location.hash.match(/slide=(\d+)/); show(h?parseInt(h[1])-1:0);
+  if(location.hash.indexOf('edit')>=0)setEditing(true);
+  renderProp(null);
 })();
 </script>
 
