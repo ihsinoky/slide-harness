@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<title>AI-DLC の基本構成 — Microsoft Fluent 2 版</title>
+<style>
+:root{
+  --key:#0F6CBD; --key-dark:#115EA3; --tint:#EFF6FC; --tint2:#EFF6FC;
+  --ink:#242424; --ink-sub:#616161; --line:#D1D1D1; --paper:#FFFFFF;
+  --warn:#B3261E; --focus:#FFD43D; --reg:#8764B8;
+  --font:"Segoe UI","Noto Sans JP",sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--font);color:var(--ink);background:#242424;line-height:1.7}
+.stage{height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.slide{width:1280px;height:720px;flex:none;background:var(--paper);position:relative;padding:52px 72px 64px;display:none;flex-direction:column;transform-origin:center center}
+.slide.active{display:flex}
+.slide .kicker{font-size:15px;font-weight:700;color:#0F6CBD;letter-spacing:.08em;margin-bottom:8px}
+.slide h1{font-size:38px;line-height:1.35;font-weight:700;margin-bottom:22px;color:#242424}
+.slide .fig{flex:1;display:flex;align-items:center;justify-content:center;min-height:0}
+.slide .fig svg{max-width:100%;max-height:100%}
+.slide .takeaway{margin-top:24px;padding:14px 20px;font-size:20px;font-weight:700;line-height:1.6;background:#fff;border:1px solid #D1D1D1;border-left:6px solid #0F6CBD;box-shadow:0 4px 12px rgba(0,0,0,.12);border-radius:8px;}
+.slide .note{margin-top:12px;font-size:16px;color:var(--ink-sub)}
+.slide .pageno{position:absolute;right:72px;bottom:26px;font-size:14px;color:var(--ink-sub)}
+.slide .deckname{position:absolute;left:72px;bottom:26px;font-size:14px;color:var(--ink-sub)}
+svg text{font-family:var(--font)}
+.box{fill:#fff;stroke:var(--key);stroke-width:2}
+.box-tint{fill:var(--tint);stroke:var(--key);stroke-width:2}
+.box-solid{fill:var(--key);stroke:var(--key);stroke-width:2}
+.box-gray{fill:#F5F5F5;stroke:var(--line);stroke-width:1.5}
+.box-reg{fill:#F0EBFA;stroke:var(--reg);stroke-width:2}
+.lbl{font-size:21px;font-weight:700;fill:var(--ink)}
+.lbl-w{font-size:21px;font-weight:700;fill:#fff}
+.lbl-key{font-size:21px;font-weight:700;fill:var(--key)}
+.lbl-reg{font-size:19px;font-weight:700;fill:var(--reg)}
+.sub{font-size:15px;fill:var(--ink-sub)}
+.sub-w{font-size:15px;fill:#E8F1FE}
+.arrow{stroke:var(--ink);stroke-width:2.5;fill:none;marker-end:url(#ah)}
+.arrow-key{stroke:var(--key);stroke-width:3;fill:none;marker-end:url(#ahk)}
+.arrow-reg{stroke:var(--reg);stroke-width:2.5;fill:none;marker-end:url(#ahr)}
+.hud{position:fixed;left:50%;transform:translateX(-50%);bottom:18px;display:flex;gap:10px;align-items:center;z-index:10}
+.hud button{font-family:var(--font);font-size:15px;font-weight:700;color:var(--key);background:#fff;border:2px solid var(--key);border-radius:8px;padding:8px 18px;cursor:pointer}
+.hud .count{color:#fff;font-size:15px;font-weight:700}
+.progress{position:fixed;top:0;left:0;height:5px;background:var(--key);z-index:10}
+@media print{
+  body{background:#fff}
+  .stage{height:auto;display:block}
+  .slide{display:flex;transform:none!important;page-break-after:always;border:1px solid var(--line);margin:0 auto 16px}
+  .hud,.progress{display:none}
+}
+
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="stage" id="stage">
+<svg width="0" height="0" style="position:absolute">
+  <defs>
+    <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#333333"/></marker>
+    <marker id="ahk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0017C1"/></marker>
+    <marker id="ahr" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#7A4FA3"/></marker>
+  </defs>
+</svg>
+
+<section class="slide">
+  <div class="kicker">全体像</div>
+  <h1>AI-DLC は、開発を3フェーズで一周させるライフサイクルである</h1>
+  <div class="fig">
+    <svg viewBox="0 0 1100 330" role="img" aria-label="3フェーズの全体地図">
+      <rect class="box-tint" x="20" y="70" width="320" height="120" rx="10"/>
+      <text class="lbl-key" x="180" y="120" text-anchor="middle">Inception</text>
+      <text class="sub" x="180" y="150" text-anchor="middle">何を作るかを決める</text>
+      <rect class="box-tint" x="390" y="70" width="320" height="120" rx="10"/>
+      <text class="lbl-key" x="550" y="120" text-anchor="middle">Construction</text>
+      <text class="sub" x="550" y="150" text-anchor="middle">作って確かめる</text>
+      <rect class="box-tint" x="760" y="70" width="320" height="120" rx="10"/>
+      <text class="lbl-key" x="920" y="120" text-anchor="middle">Operations</text>
+      <text class="sub" x="920" y="150" text-anchor="middle">届けて運用する</text>
+      <path class="arrow-key" d="M340,130 L384,130"/>
+      <path class="arrow-key" d="M710,130 L754,130"/>
+      <path class="arrow" d="M920,190 L920,250 L180,250 L180,196" stroke-dasharray="6 5"/>
+      <text class="sub" x="550" y="275" text-anchor="middle">運用で得た学びが、次の Intent（意図）へ戻る</text>
+      <text class="sub" x="180" y="45" text-anchor="middle">要求・計画・設計の決定</text>
+      <text class="sub" x="550" y="45" text-anchor="middle">実装・テスト</text>
+      <text class="sub" x="920" y="45" text-anchor="middle">リリース・運用・監視</text>
+    </svg>
+  </div>
+  <div class="takeaway">AI-DLC（AI-Driven Development Life Cycle）は開発の進め方の枠組みで、特定の AI ツールの使い方ではない</div>
+  <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">なぜこの形か</div>
+  <h1>発想の逆転：AI が計画し実行し、人間は承認に回る</h1>
+  <div class="fig">
+    <svg viewBox="0 0 1100 330" role="img" aria-label="従来のAI支援開発とAI-DLCの対比">
+      <text class="lbl" x="20" y="60">従来の AI 支援開発</text>
+      <rect class="box-gray" x="20" y="80" width="500" height="90" rx="10"/>
+      <text class="lbl" x="270" y="118" text-anchor="middle">人間：計画・実行</text>
+      <text class="sub" x="270" y="146" text-anchor="middle">AI は補完・生成の手伝い</text>
+      <text class="lbl" x="580" y="60">AI-DLC</text>
+      <rect class="box-solid" x="580" y="80" width="500" height="90" rx="10"/>
+      <text class="lbl-w" x="830" y="118" text-anchor="middle">AI：計画・提案・実行</text>
+      <text class="sub-w" x="830" y="146" text-anchor="middle">人間は区切りごとに承認する</text>
+      <rect class="box" x="20" y="215" width="1060" height="80" rx="10" stroke-dasharray="7 5"/>
+      <text class="lbl" x="550" y="250" text-anchor="middle">誤解への注意：「丸投げして承認ボタンを押すだけ」は逆転ではない</text>
+      <text class="sub" x="550" y="278" text-anchor="middle">承認は、計画と成果物を読んで判断する能動的な仕事として設計されている</text>
+    </svg>
+  </div>
+  <div class="takeaway">逆転しているのは作業の担い手であり、責任の所在は人間に残る</div>
+  <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">既存の地図との対応</div>
+  <h1>知っている地図との対応：IEC 62304 の V字は、3フェーズのここに重なる</h1>
+  <div class="fig">
+    <svg viewBox="0 0 1100 360" role="img" aria-label="IEC 62304のV字モデルとAI-DLC 3フェーズの対応マップ">
+      <path d="M60,60 L330,300 L600,60" stroke="#333" stroke-width="2.5" fill="none"/>
+      <text class="sub" x="60" y="45">開発計画・要求</text>
+      <text class="sub" x="150" y="150">アーキテクチャ・詳細設計</text>
+      <text class="sub" x="300" y="330">実装</text>
+      <text class="sub" x="430" y="150">統合・システムテスト</text>
+      <text class="sub" x="520" y="45">リリース</text>
+      <path class="arrow-key" d="M640,90 L730,90"/>
+      <path class="arrow-key" d="M640,180 L730,180"/>
+      <path class="arrow-key" d="M640,270 L730,270"/>
+      <rect class="box-tint" x="740" y="55" width="340" height="70" rx="10"/>
+      <text class="lbl-key" x="910" y="98" text-anchor="middle">Inception</text>
+      <rect class="box-tint" x="740" y="145" width="340" height="70" rx="10"/>
+      <text class="lbl-key" x="910" y="188" text-anchor="middle">Construction</text>
+      <rect class="box-tint" x="740" y="235" width="340" height="70" rx="10"/>
+      <text class="lbl-key" x="910" y="278" text-anchor="middle">Operations</text>
+      <text class="lbl-reg" x="60" y="360">V字にないもの： Intent ／ 適応型の経路選択 ／ 並走する規制成果物</text>
+    </svg>
+  </div>
+  <div class="takeaway">「左で決めたことを右で確かめる」という V字の対応感覚は、そのまま AI-DLC でも使える</div>
+  <div class="note">注記：この対応は近似である。V字は逐次モデル、AI-DLC は承認ゲートを挟んだ反復であり、同じ形ではない。</div>
+  <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">入口</div>
+  <h1>入口はコードではなく Intent（意図の言語化）</h1>
+  <div class="fig">
+    <svg viewBox="0 0 1100 330" role="img" aria-label="IntentがInceptionの入力になる流れ">
+      <rect class="box-solid" x="20" y="95" width="300" height="110" rx="10"/>
+      <text class="lbl-w" x="170" y="140" text-anchor="middle">Intent</text>
+      <text class="sub-w" x="170" y="168" text-anchor="middle">何を・なぜ、を短く言語化</text>
+      <path class="arrow-key" d="M320,150 L390,150"/>
+      <rect class="box" x="400" y="95" width="300" height="110" rx="10"/>
+      <text class="lbl" x="550" y="140" text-anchor="middle">Inception で展開</text>
+      <text class="sub" x="550" y="168" text-anchor="middle">要求分析・計画・設計の決定</text>
+      <path class="arrow-key" d="M700,150 L770,150"/>
+      <rect class="box-gray" x="780" y="95" width="300" height="110" rx="10"/>
+      <text class="lbl" x="930" y="140" text-anchor="middle">詳細は対話で詰める</text>
+      <text class="sub" x="930" y="168" text-anchor="middle">AI の提案 × 人間の応答</text>
+      <text class="sub" x="20" y="260">例：×「この画面を直して」　→　○「測定値の表示遅延をなくし、現場の確認作業を速くしたい」</text>
+    </svg>
+  </div>
+  <div class="takeaway">Intent は仕様書ではない。出発点の意図であり、詳細は Inception の中で詰める</div>
+  <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">安全の仕掛け</div>
+  <h1>承認ゲート：区切りで人間が承認しないと、先へ進まない</h1>
+  <div class="fig">
+    <svg viewBox="0 0 1100 330" role="img" aria-label="承認ゲート付きのフェーズフロー">
+      <rect class="box-tint" x="20" y="100" width="240" height="100" rx="10"/>
+      <text class="lbl-key" x="140" y="158" text-anchor="middle">Inception</text>
+      <polygon points="330,100 400,150 330,200 260,150" fill="#fff" stroke="#B3261E" stroke-width="2"/>
+      <text x="330" y="145" text-anchor="middle" font-size="16" font-weight="700" fill="#B3261E">承認</text>
+      <text x="330" y="168" text-anchor="middle" font-size="13" fill="#B3261E">ゲート</text>
+      <path class="arrow-key" d="M400,150 L460,150"/>
+      <rect class="box-tint" x="470" y="100" width="240" height="100" rx="10"/>
+      <text class="lbl-key" x="590" y="158" text-anchor="middle">Construction</text>
+      <polygon points="780,100 850,150 780,200 710,150" fill="#fff" stroke="#B3261E" stroke-width="2"/>
+      <text x="780" y="145" text-anchor="middle" font-size="16" font-weight="700" fill="#B3261E">承認</text>
+      <text x="780" y="168" text-anchor="middle" font-size="13" fill="#B3261E">ゲート</text>
+      <path class="arrow-key" d="M850,150 L910,150"/>
+      <rect class="box-tint" x="920" y="100" width="160" height="100" rx="10"/>
+      <text class="lbl-key" x="1000" y="158" text-anchor="middle">Operations</text>
+      <path class="arrow" d="M330,200 L330,265 L140,265 L140,206" stroke-dasharray="6 5"/>
+      <text class="sub" x="235" y="290" text-anchor="middle">差し戻し：前提の誤りを安い段階で捕まえる</text>
+    </svg>
+  </div>
+  <div class="takeaway">ゲートは儀式ではない。判断材料はすべて成果物として残るため、承認は「読んで決める」形になる</div>
+  <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">文脈の持ち方</div>
+  <h1>成果物が文脈になる：文書の蓄積が次の作業の前提になる</h1>
+  <div class="fig">
+    <svg viewBox="0 0 1100 340" role="img" aria-label="成果物が階段状に積み上がる図">
+      <rect class="box" x="40" y="220" width="220" height="70" rx="8"/>
+      <text class="lbl" x="150" y="262" text-anchor="middle">要求</text>
+      <rect class="box" x="290" y="160" width="220" height="70" rx="8"/>
+      <text class="lbl" x="400" y="202" text-anchor="middle">設計</text>
+      <rect class="box" x="540" y="100" width="220" height="70" rx="8"/>
+      <text class="lbl" x="650" y="142" text-anchor="middle">コード</text>
+      <rect class="box" x="790" y="40" width="220" height="70" rx="8"/>
+      <text class="lbl" x="900" y="82" text-anchor="middle">テスト結果</text>
+      <path class="arrow-key" d="M260,240 L330,225"/>
+      <path class="arrow-key" d="M510,180 L580,165"/>
+      <path class="arrow-key" d="M760,120 L830,105"/>
+      <rect class="box-gray" x="40" y="300" width="970" height="34" rx="6"/>
+      <text class="sub" x="525" y="323" text-anchor="middle">土台：aidlc-docs（成果物の置き場）＋ 状態ファイル（進捗）＋ 監査ログ（全やり取り）</text>
+    </svg>
+  </div>
+  <div class="takeaway">文書が多いのは、文書が AI と人間の共有文脈であり、次の作業の前提条件だから</div>
+  <div class="note">会話だけで進める開発との違いがここに出る。文脈が文書に固定されるため、途中から再開でき、後から追える。</div>
+  <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">適応型</div>
+  <h1>全部は回さない：規模に応じてステージを選ぶ適応型</h1>
+  <div class="fig">
+    <svg viewBox="0 0 1100 330" role="img" aria-label="規模で経路が分岐する図">
+      <rect class="box-solid" x="20" y="120" width="220" height="90" rx="10"/>
+      <text class="lbl-w" x="130" y="158" text-anchor="middle">入口で判定</text>
+      <text class="sub-w" x="130" y="184" text-anchor="middle">規模とリスクを見る</text>
+      <path class="arrow-key" d="M240,140 C 340,110 380,90 470,80"/>
+      <path class="arrow-key" d="M240,190 C 340,230 380,245 470,250"/>
+      <rect class="box" x="480" y="40" width="600" height="80" rx="10"/>
+      <text class="lbl" x="780" y="75" text-anchor="middle">短縮経路（小さな変更）</text>
+      <text class="sub" x="780" y="100" text-anchor="middle">Inception を短縮し、必要なステージだけ回す</text>
+      <rect class="box" x="480" y="215" width="600" height="80" rx="10"/>
+      <text class="lbl" x="780" y="250" text-anchor="middle">全経路（大規模な新規開発）</text>
+      <text class="sub" x="780" y="275" text-anchor="middle">全ステージを回し、各区切りで承認する</text>
+    </svg>
+  </div>
+  <div class="takeaway">「重いプロセス」という印象は、全ステージを常時回す前提から来る誤解</div>
+  <div class="note">選ばれなかったステージは「省略」ではなく「不要と判断した」として、ワークフロー計画に記録される。</div>
+  <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">作業の単位</div>
+  <h1>作業の単位：Unit of Work と Bolt、そして一緒に詰める Mob</h1>
+  <div class="fig">
+    <svg viewBox="0 0 1100 340" role="img" aria-label="Intent、Unit of Work、Boltの入れ子図">
+      <rect x="60" y="30" width="700" height="280" rx="12" fill="none" stroke="#0017C1" stroke-width="2"/>
+      <text class="lbl-key" x="90" y="70">Intent（全体）</text>
+      <rect x="110" y="90" width="560" height="190" rx="10" fill="#E8F1FE" stroke="#0017C1" stroke-width="2"/>
+      <text class="lbl-key" x="140" y="128">Unit of Work（区画）</text>
+      <text class="sub" x="140" y="152">独立に設計・実装・テストできる分割単位</text>
+      <rect x="160" y="175" width="420" height="80" rx="8" fill="#fff" stroke="#0017C1" stroke-width="2"/>
+      <text class="lbl" x="190" y="212">Bolt（歩幅）</text>
+      <text class="sub" x="190" y="236">スプリントに代わる、短く集中した反復</text>
+      <text class="lbl" x="810" y="120">Mob</text>
+      <text class="sub" x="810" y="148">区画を詰める場面では、</text>
+      <text class="sub" x="810" y="172">人間と AI が同じ成果物を</text>
+      <text class="sub" x="810" y="196">見ながら一緒に詰める</text>
+      <text class="sub" x="810" y="232">（Mob Elaboration／</text>
+      <text class="sub" x="810" y="256">　Mob Construction）</text>
+    </svg>
+  </div>
+  <div class="takeaway">地図の縮尺はこの3層で決まる。Intent が全体、Unit が区画、Bolt が歩く歩幅</div>
+  <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">プラグイン</div>
+  <h1>プラグインの仕組み：拡張はルールとテンプレートを差し込み、規制成果物を並走させる</h1>
+  <div class="fig">
+    <svg viewBox="0 0 1100 340" role="img" aria-label="規制拡張の差し込み図">
+      <rect class="box-tint" x="20" y="110" width="300" height="110" rx="10"/>
+      <text class="lbl-key" x="170" y="155" text-anchor="middle">コアのワークフロー</text>
+      <text class="sub" x="170" y="182" text-anchor="middle">3フェーズの流れ（不変）</text>
+      <rect class="box-reg" x="400" y="60" width="300" height="210" rx="10"/>
+      <text class="lbl-reg" x="550" y="100" text-anchor="middle">規制拡張（差し込み）</text>
+      <text class="sub" x="550" y="132" text-anchor="middle">規格ごとのルールファイル</text>
+      <text class="sub" x="550" y="156" text-anchor="middle">＋ 文書テンプレート</text>
+      <text class="sub" x="550" y="196" text-anchor="middle">適用は要求分析で opt-in</text>
+      <text class="sub" x="550" y="220" text-anchor="middle">IEC 62304／ISO 14971 など9規格</text>
+      <path class="arrow-key" d="M320,165 L394,165"/>
+      <path class="arrow" d="M700,120 L790,90"/>
+      <path class="arrow-reg" d="M700,215 L790,250"/>
+      <rect class="box" x="800" y="45" width="280" height="80" rx="10"/>
+      <text class="lbl" x="940" y="80" text-anchor="middle">通常の成果物</text>
+      <text class="sub" x="940" y="105" text-anchor="middle">要求・設計・コード・テスト</text>
+      <rect class="box-reg" x="800" y="215" width="280" height="80" rx="10"/>
+      <text class="lbl-reg" x="940" y="250" text-anchor="middle">規制成果物</text>
+      <text class="sub" x="940" y="275" text-anchor="middle">aidlc-docs/regulatory/</text>
+    </svg>
+  </div>
+  <div class="takeaway">コア側の変更は最小で、「ステージを閉じる前に拡張の成果物を生成する」という必須の決まりを1節足すことが中心</div>
+  <div class="note">ルールとテンプレートは、組織の品質マネジメントシステム（QMS）に合わせて編集できる。</div>
+  <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">ウォークスルー</div>
+  <h1>ウォークスルー：医療機器ソフトの変更が3フェーズを流れる</h1>
+  <div class="fig">
+    <svg viewBox="0 0 1100 350" role="img" aria-label="アラーム閾値変更が3フェーズを流れる帯状図">
+      <text class="sub" x="20" y="35">例：測定アラームの閾値仕様の変更</text>
+      <rect class="box-tint" x="20" y="55" width="340" height="95" rx="10"/>
+      <text class="lbl-key" x="190" y="95" text-anchor="middle">Inception</text>
+      <text class="sub" x="190" y="122" text-anchor="middle">Intent → 要求分析・計画</text>
+      <rect class="box-tint" x="380" y="55" width="340" height="95" rx="10"/>
+      <text class="lbl-key" x="550" y="95" text-anchor="middle">Construction</text>
+      <text class="sub" x="550" y="122" text-anchor="middle">設計・実装・単体テスト</text>
+      <rect class="box-tint" x="740" y="55" width="340" height="95" rx="10"/>
+      <text class="lbl-key" x="910" y="95" text-anchor="middle">Operations</text>
+      <text class="sub" x="910" y="122" text-anchor="middle">リリース・運用</text>
+      <path class="arrow-key" d="M360,102 L374,102"/>
+      <path class="arrow-key" d="M720,102 L734,102"/>
+      <path class="arrow-reg" d="M190,150 L190,196"/>
+      <path class="arrow-reg" d="M550,150 L550,196"/>
+      <path class="arrow-reg" d="M910,150 L910,196"/>
+      <rect class="box-reg" x="20" y="205" width="340" height="95" rx="10"/>
+      <text class="lbl-reg" x="190" y="242" text-anchor="middle">規制成果物（並走）</text>
+      <text class="sub" x="190" y="268" text-anchor="middle">62304／14971 を opt-in、リスク分析</text>
+      <rect class="box-reg" x="380" y="205" width="340" height="95" rx="10"/>
+      <text class="lbl-reg" x="550" y="242" text-anchor="middle">規制成果物（並走）</text>
+      <text class="sub" x="550" y="268" text-anchor="middle">トレーサビリティマトリクスの更新</text>
+      <rect class="box-reg" x="740" y="205" width="340" height="95" rx="10"/>
+      <text class="lbl-reg" x="910" y="242" text-anchor="middle">規制成果物（並走）</text>
+      <text class="sub" x="910" y="268" text-anchor="middle">リリース記録・設計履歴ファイル</text>
+    </svg>
+  </div>
+  <div class="takeaway">規制成果物は最後にまとめて作るのではなく、各ステージを閉じるたびに並走して生まれる</div>
+  <div class="note">この例は流れを示すための単純化で、実際のステージ数と成果物は作業規模と opt-in した規格で変わる。</div>
+  <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
+</section>
+
+<section class="slide">
+  <div class="kicker">ゴール確認</div>
+  <h1>ゴール確認：地図を自分の言葉で描き直せるか</h1>
+  <div class="fig">
+    <svg viewBox="0 0 1100 330" role="img" aria-label="ゴール確認のチェックリスト">
+      <rect class="box" x="40" y="30" width="1020" height="70" rx="10"/>
+      <text class="lbl" x="80" y="73">□　3フェーズそれぞれの役割を、V字の言葉で言い換えられるか</text>
+      <rect class="box" x="40" y="120" width="1020" height="70" rx="10"/>
+      <text class="lbl" x="80" y="163">□　「AI が実行し、人間が承認する」が、どの区切りで起きるか指せるか</text>
+      <rect class="box" x="40" y="210" width="1020" height="70" rx="10"/>
+      <text class="lbl" x="80" y="253">□　規制要求がどこから入り、どこに出てくるか言えるか</text>
+    </svg>
+  </div>
+  <div class="takeaway">3つとも言えれば、全体像の地図は持ち帰れたことになる</div>
+  <div class="note">次に学ぶこと：各フェーズのステージ詳細（Inception の要求分析とワークフロー計画から）、拡張ルールファイルの読み方、自組織 QMS への適合の考え方。</div>
+  <div class="deckname">AI-DLC の基本構成</div><div class="pageno"></div>
+</section>
+
+</div>
+<div class="hud">
+  <button id="prev" type="button">← 前へ</button>
+  <span class="count" id="count"></span>
+  <button id="next" type="button">次へ →</button>
+</div>
+<script>
+(function(){
+  var slides=[].slice.call(document.querySelectorAll('.slide'));
+  var i=0;
+  function fit(){
+    var s=Math.min(window.innerWidth/1320,window.innerHeight/760,1.4);
+    slides.forEach(function(el){el.style.transform='scale('+s+')';});
+  }
+  function show(n){
+    i=Math.max(0,Math.min(slides.length-1,n));
+    slides.forEach(function(el,k){el.classList.toggle('active',k===i);});
+    document.getElementById('count').textContent=(i+1)+' / '+slides.length;
+    document.getElementById('progress').style.width=((i+1)/slides.length*100)+'%';
+    fit();
+  }
+  slides.forEach(function(el,k){
+    var p=el.querySelector('.pageno'); if(p){p.textContent=(k+1)+' / '+slides.length;}
+  });
+  document.getElementById('prev').addEventListener('click',function(){show(i-1);});
+  document.getElementById('next').addEventListener('click',function(){show(i+1);});
+  document.addEventListener('keydown',function(e){
+    if(e.key==='ArrowRight'||e.key===' '){show(i+1);}
+    if(e.key==='ArrowLeft'){show(i-1);}
+  });
+  window.addEventListener('resize',fit);
+  show(0);
+})();
+</script>
+
+</body>
+</html>
