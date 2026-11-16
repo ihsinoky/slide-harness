@@ -10,6 +10,10 @@ description: スライド資料を、意図合わせ（型の推定とG0ファ�
 検査の正は `core/anti-slop-checklist.md`、図の分類は `core/figure-forms.md`。このファイルはその要約であり、
 矛盾する場合は core 側を優先する。
 
+開始時に `extensions/` を走査し、`tools/validate-extensions.py` の検証を通った拡張の型・ロールを
+候補に加える（仕組みは `core/extensions.md`）。検証を通らない拡張は候補に入れず、その旨を記録する。
+拡張の型を使った場合は、拡張名・版・status を `type-diagnosis.md` に記録する。
+
 ## 進め方（フェーズを飛ばさない）
 
 1. **フェーズ0 意図**：目的・読み手・判断ゴールを聞き取る（聞くのは読み手と成功条件であり、型の名前ではない）。
