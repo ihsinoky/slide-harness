@@ -6,6 +6,7 @@
 判定できるものを機械で判定する層。エージェントの自己申告に依存しない。
 検査内容:
   構造: slides.md と slides.html のスライド数・タイトルの一致、
+        outline.md（表形式）がある場合はそのタイトルとの一致、
         各スライドのキッカー／タイトル／要点の有無（このスクリプトで判定）
   幾何: SVG 内テキストの実寸（ヘッドレス Chrome で getBBox を実測）が、
         収まるべき四角（中心を含む最小の rect）と viewBox の内側にあるか。
@@ -108,6 +109,16 @@ def main() -> int:
     md_titles = re.findall(r"^## \d+\.\s*(.+)$", md, re.M)
     if len(sections) != len(md_titles):
         errors.append(f"構造: スライド数が一致しません（html {len(sections)} / md {len(md_titles)}）")
+    outline_path = work / "outline.md"
+    if outline_path.is_file():
+        outline = outline_path.read_text(encoding="utf-8")
+        ol_titles = [t.strip() for _, t in sorted(
+            ((int(n), t) for n, t in re.findall(r"^\| (\d+) \| (.+?) \|", outline, re.M)))]
+        if ol_titles and len(ol_titles) == len(md_titles):
+            for i, (a, b) in enumerate(zip(ol_titles, md_titles), 1):
+                if a != b.strip():
+                    errors.append(f"構造: {i}枚目のタイトルが outline.md と一致しません"
+                                  "（承認済み構成からの逸脱。変更なら構成の変更として記録すること）")
     for i, sec in enumerate(sections, 1):
         h1 = re.search(r"<h1>(.*?)</h1>", sec, re.S)
         title = re.sub(r"\s+", " ", h1.group(1)).strip() if h1 else ""
