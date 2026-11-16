@@ -45,6 +45,20 @@ extensions/<name>/
 
 デザインの解決順（`core/rendering.md`）：案件が指定した拡張デザイン → 案件固有テンプレート → リポジトリ共有 → 標準。案件がどのデザインを使ったか（拡張名と版を含む）を lint-report に記録する。
 
+## デザインの取り込み（インポート）
+
+既存の PowerPoint や参考 HTML スライドから、デザイントークンを取り込んで拡張デザインを生成できる。
+
+```bash
+python3 tools/import-design.py --from deck.pptx --name imported-corporate --slug corporate
+python3 tools/import-design.py --from reference.html --name imported-web --slug web
+```
+
+- PowerPoint：テーマ（ppt/theme）の色スキーム（accent1 をキーカラー、dk1 を本文色、accent2 を規制色）と書体スキーム（見出し／本文）、スライド背景を抽出する
+- HTML：`:root` の CSS 変数があればそのまま、無ければ色の出現頻度からキーカラーを推定する
+- 生成物は標準テンプレートの骨格に抽出トークンを差し込んだ `template.html` と、出典・抽出値・限界を記録した `SOURCE.md`。manifest への登録まで自動で行い、status は `sample` で始まる
+- **限界**：取り込むのは色・書体のトークンだけ。ロゴ、画像、図形の配置、スライドマスターの複雑なレイアウトは再現しない。書体は名前の取り込みのみでフォント自体は同梱しない。取り込んだデザインは人間が実物を見て確認してから status を上げる
+
 ## 型ファイルの必須部品
 
 `types/<slug>.md` は次の見出しをすべて含むこと（検証スクリプトが検査する）。
