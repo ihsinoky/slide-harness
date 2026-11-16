@@ -75,29 +75,36 @@ svg text{font-family:var(--font)}
           <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#333333"/></marker>
           <marker id="ahk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0F62FE"/></marker>
         </defs>
-<rect class="box-tint" x="370" y="20" width="360" height="56" rx="8"/>
-<text class="lbl" x="550" y="55" text-anchor="middle">slide-harness（基盤）</text>
-<rect class="box" x="60" y="130" width="300" height="120" rx="8"/>
-<text class="lbl" x="210" y="165" text-anchor="middle">プロセス</text>
-<text class="sub" x="210" y="195" text-anchor="middle">4フェーズ＋3ゲート</text>
-<text class="sub" x="210" y="222" text-anchor="middle">意図→構成→生成→検証</text>
-<rect class="box" x="400" y="130" width="300" height="120" rx="8"/>
-<text class="lbl" x="550" y="165" text-anchor="middle">型</text>
-<text class="sub" x="550" y="195" text-anchor="middle">読み手の仕事で決まる7型</text>
-<text class="sub" x="550" y="222" text-anchor="middle">型リードが物差しを切り替える</text>
-<rect class="box" x="740" y="130" width="300" height="120" rx="8"/>
-<text class="lbl" x="890" y="165" text-anchor="middle">拡張</text>
-<text class="sub" x="890" y="195" text-anchor="middle">型・ロール・デザイン</text>
-<text class="sub" x="890" y="222" text-anchor="middle">core を書き換えずに足す</text>
-<line class="arrow-key" x1="480" y1="76" x2="260" y2="126" marker-end="url(#ahk)"/>
-<line class="arrow-key" x1="550" y1="76" x2="550" y2="126" marker-end="url(#ahk)"/>
-<line class="arrow-key" x1="620" y1="76" x2="840" y2="126" marker-end="url(#ahk)"/>
-<rect class="box-gray" x="240" y="282" width="620" height="62" rx="8"/>
-<text class="sub" x="550" y="308" text-anchor="middle">正は core に1つ</text>
-<text class="sub" x="550" y="332" text-anchor="middle">実装は GitHub Copilot、M365 Copilot Studio へは移植</text>
+<rect class="box" x="50" y="14" width="1000" height="332" rx="10"/>
+<text class="lbl" x="78" y="50" text-anchor="start">slide-harness ＝ 資料づくり全体の進め方</text>
+<rect class="box-gray" x="580" y="62" width="210" height="30" rx="6"/>
+<text class="sub" x="685" y="82" text-anchor="middle">ふつうのAI生成は、ここだけ</text>
+<rect class="box" x="75" y="104" width="228" height="86" rx="8"/>
+<text class="lbl" x="189" y="140" text-anchor="middle">意図を合わせる</text>
+<text class="sub" x="189" y="168" text-anchor="middle">読み手と成功条件（承認 G0）</text>
+<line class="arrow-key" x1="307" y1="147" x2="329" y2="147" marker-end="url(#ahk)"/>
+<rect class="box" x="333" y="104" width="228" height="86" rx="8"/>
+<text class="lbl" x="447" y="140" text-anchor="middle">構成を決める</text>
+<text class="sub" x="447" y="168" text-anchor="middle">型と目次（承認 G1）</text>
+<line class="arrow-key" x1="565" y1="147" x2="587" y2="147" marker-end="url(#ahk)"/>
+<rect class="box-tint" x="591" y="104" width="228" height="86" rx="8"/>
+<text class="lbl" x="705" y="140" text-anchor="middle">AIが生成する</text>
+<text class="sub" x="705" y="168" text-anchor="middle">スライドを描く</text>
+<line class="arrow-key" x1="823" y1="147" x2="845" y2="147" marker-end="url(#ahk)"/>
+<rect class="box" x="849" y="104" width="176" height="86" rx="8"/>
+<text class="lbl" x="937" y="140" text-anchor="middle">検査して直す</text>
+<text class="sub" x="937" y="168" text-anchor="middle">lint と検証（承認 G3）</text>
+<text class="sub" x="550" y="224" text-anchor="middle">AIが作るのは3番目だけ。前後は、人との合意と検査の工程です</text>
+<text class="sub" x="78" y="262" text-anchor="start">支える仕組み</text>
+<rect class="box" x="75" y="272" width="303" height="56" rx="8"/>
+<text class="sub" x="226" y="306" text-anchor="middle">型：資料ごとの物差し</text>
+<rect class="box" x="398" y="272" width="303" height="56" rx="8"/>
+<text class="sub" x="549" y="306" text-anchor="middle">拡張：型・ロール・デザインを足す</text>
+<rect class="box" x="721" y="272" width="303" height="56" rx="8"/>
+<text class="sub" x="872" y="306" text-anchor="middle">規約：図解ガイドなど作り方の決まり</text>
       </svg>
     </div>
-    <div class="takeaway">AI に作らせる仕組みではなく、作り方そのものをフェーズとゲートで管理する基盤です</div>
+    <div class="takeaway">「作る」だけがAI生成ではありません。作る前の意図合わせと構成、作った後の検査までを含む進め方です</div>
     
     <div class="deckname">slide-harness 紹介 — AIスロップ対策をプロセスに組み込んだスライド作成基盤</div>
     <div class="pageno"></div>
