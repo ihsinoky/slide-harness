@@ -34,7 +34,7 @@ extensions/<name>/
 - slug は型・ロールを通じた識別子。core の型 slug（recommendation / pitch / status / results / postmortem / explanation / framing）と衝突させない
 - デザインは `provides.designs` に `{ "slug": "note", "file": "designs/note", "status": "sample" }` の形で宣言する
 
-## デザイン（様式層）の契約
+## デザイン（表現層）の契約
 
 拡張が提供するデザインは、標準テンプレートと同じ契約を満たす `template.html` を含むこと（検証スクリプトが検査する）。
 
