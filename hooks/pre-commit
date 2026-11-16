@@ -1,0 +1,14 @@
+#!/bin/sh
+# slide-harness: works/<案件>/slides.html|slides.md を含むコミットでは機械 lint を強制する。
+# G2 は機械 lint のパスなしに成立しない（core/process.md フェーズ2）。
+set -e
+files=$(git diff --cached --name-only --diff-filter=ACM | grep -E '^works/[^/]+/slides\.(html|md)$' || true)
+[ -z "$files" ] && exit 0
+dirs=$(printf '%s\n' "$files" | while read -r f; do dirname "$f"; done | sort -u)
+for d in $dirs; do
+  if ! python3 tools/lint-slides.py "$d"; then
+    echo "pre-commit: 機械 lint が不合格のためコミットを止めました（$d）" >&2
+    exit 1
+  fi
+done
+exit 0
