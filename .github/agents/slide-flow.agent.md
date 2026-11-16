@@ -13,6 +13,8 @@ description: スライド資料を、意図合わせ（型の推定とG0ファ�
 開始時に `extensions/` を走査し、`tools/validate-extensions.py` の検証を通った拡張の型・ロールを
 候補に加える（仕組みは `core/extensions.md`）。検証を通らない拡張は候補に入れず、その旨を記録する。
 拡張の型を使った場合は、拡張名・版・status を `type-diagnosis.md` に記録する。
+拡張が規約を提供し、その拡張を採用する場合は、規約の slug も `type-diagnosis.md` に記録し、
+その案件の lint の検査対象に加える（core の規約と競合したら停止して人間に上げる）。
 
 ## 進め方（フェーズを飛ばさない）
 

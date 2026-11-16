@@ -1,6 +1,6 @@
 # 拡張（extensions）の仕組み
 
-型とロールは、core を書き換えずに「拡張パッケージ」として追加できる。設計は AI-DLC v2 のプラグイン機構（manifest による宣言、厳密な加算、core 不変、無効化で素に戻る）を輸入したもの。
+型・ロール・デザイン・規約は、core を書き換えずに「拡張パッケージ」として追加できる。設計は AI-DLC v2 のプラグイン機構（manifest による宣言、厳密な加算、core 不変、無効化で素に戻る）を輸入したもの。
 
 ## 置き場と構成
 
@@ -13,6 +13,7 @@ extensions/<name>/
   roles/<slug>.md       # ロールの定義
   designs/<slug>/       # デザイン（テンプレート一式）
     template.html
+  conventions/<slug>.md # 規約の定義
 ```
 
 ## manifest（extension.json）
@@ -33,6 +34,7 @@ extensions/<name>/
 - `status` は `sample`（見本・未検証）／`trial`（試走中）／`verified`（試走で検証済み）のいずれか。`verified` への昇格は人間の承認による
 - slug は型・ロールを通じた識別子。core の型 slug（recommendation / pitch / status / results / postmortem / explanation / framing）と衝突させない
 - デザインは `provides.designs` に `{ "slug": "note", "file": "designs/note", "status": "sample" }` の形で宣言する
+- 規約は `provides.conventions` に `{ "slug": "record-source", "file": "conventions/record-source.md", "status": "sample" }` の形で宣言する。規約の slug は規約同士で一意とし、core の規約（`diagram`＝図解規約）と衝突させない
 
 ## デザイン（表現層）の契約
 
@@ -80,13 +82,22 @@ python3 tools/import-design.py --from reference.html --name imported-web --slug 
 - `## 権限`
 - `## 競合ルール`（既存ロールと意見が割れたときの扱い）
 
+## 規約ファイルの必須部品
+
+`conventions/<slug>.md` は次の見出しを含むこと（検証スクリプトが検査する）。
+
+- `## 効く層`：内容・構造・表現のどの層に効くか
+- `## 規約`：決まりの本文。lint で合否を判定できる形で書く（`core/conventions.md` の性質に従う）
+- `## 判定方法`：どの lint で、どう判定するか
+
 ## 合成ルール
 
-1. **厳密な加算のみ**。拡張は core の型・ロール・プロセスを上書きしない
+1. **厳密な加算のみ**。拡張は core の型・ロール・プロセス・規約を上書きしない
 2. **slug の衝突は合成エラー**。core または他の拡張と slug が衝突したら、黙って上書きせず停止して人間に上げる
 3. **無効化はフォルダを外すだけ**。拡張を除けば、動作は素の core と一致する
 4. **フェーズ0での扱い**：類型診断の候補は「core の型＋有効な拡張の型」。拡張の型を使った場合は、使用した拡張名・版・status を `type-diagnosis.md` に記録する。`sample`／`trial` の型を使うときは、その旨を G0 の提示に含める
 5. **検証**：拡張を足したら `tools/validate-extensions.py` で構造を検査する（manifest の整合、必須部品の欠け、slug 衝突）。検査を通らない拡張は候補に入れない
+6. **規約の合成**：拡張の規約は、その拡張を採用した案件にだけ効く（案件規約と同じ範囲）。core の規約を変更・上書き・緩和することはできず、core の規約や他の規約と競合したら合成エラーとして停止し、人間に上げる。採用した場合は、拡張名・版・status と規約の slug を `type-diagnosis.md` に記録し、その案件の lint の検査対象に加える
 
 ## バインディング
 

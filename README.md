@@ -34,12 +34,12 @@ works/                    案件ごとの作業フォルダ（成果物をここ
 2. 案件ごとに `works/<案件名>/` を作り、成果物（intent / priority-map / outline / lint-report）を残す。
 3. フェーズとゲートは `core/process.md` のとおりに進む。
 
-## 型・ロールの追加（拡張）
+## 型・ロール・デザイン・規約の追加（拡張）
 
-新しい型やロールは、core を書き換えずに拡張として追加できる（仕組みの正は `core/extensions.md`）。
+新しい型・ロール・デザイン・規約は、core を書き換えずに拡張として追加できる（仕組みの正は `core/extensions.md`）。
 
-1. `extensions/<名前>/` を作り、`extension.json`（manifest）に提供する型・ロールを宣言する。
-2. 型は `types/<slug>.md` に、定義（読み手の仕事・典型構成・特有の失敗）と型リードの5部品（ミッション／観点／スコア基準／典型構成と疑問チェーン／型固有 lint）を書く。見本は `extensions/record-archive/`。
+1. `extensions/<名前>/` を作り、`extension.json`（manifest）に提供する型・ロール・デザイン・規約を宣言する。
+2. 型は `types/<slug>.md` に、定義（読み手の仕事・典型構成・特有の失敗）と型リードの5部品（ミッション／観点／スコア基準／典型構成と疑問チェーン／型固有 lint）を書く。規約は `conventions/<slug>.md` に、効く層・規約の本文・判定方法を書く。見本は `extensions/record-archive/`（型と規約）。
 3. `python3 tools/validate-extensions.py extensions` で構造と slug の衝突を検査する。検査を通った拡張だけが、フェーズ0の類型診断の候補に入る。
 4. 型の status は `sample`（未検証）から始め、試走で効き目を確認して `trial` → `verified`（人間の承認）へ上げる。
 

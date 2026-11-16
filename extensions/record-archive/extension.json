@@ -1,1 +1,1 @@
-{"description":"記録・参照型（後から正確に辿れる記録資料の型）を追加する見本の拡張","name":"record-archive","provides":{"roles":[],"types":[{"file":"types/archive-record.md","slug":"archive-record","status":"sample"}]},"version":"0.1.0"}
+{"description": "記録・参照型（後から正確に辿れる記録資料の型）と記録の出所規約を追加する見本の拡張", "name": "record-archive", "provides": {"conventions": [{"file": "conventions/record-source.md", "slug": "record-source", "status": "sample"}], "roles": [], "types": [{"file": "types/archive-record.md", "slug": "archive-record", "status": "sample"}]}, "version": "0.1.0"}
