@@ -92,8 +92,9 @@ svg text{font-family:var(--font)}
 <line class="arrow-key" x1="480" y1="76" x2="260" y2="126" marker-end="url(#ahk)"/>
 <line class="arrow-key" x1="550" y1="76" x2="550" y2="126" marker-end="url(#ahk)"/>
 <line class="arrow-key" x1="620" y1="76" x2="840" y2="126" marker-end="url(#ahk)"/>
-<rect class="box-gray" x="240" y="290" width="620" height="50" rx="8"/>
-<text class="lbl" x="550" y="322" text-anchor="middle">正は core に1つ。実装は GitHub Copilot、M365 Copilot Studio へは移植</text>
+<rect class="box-gray" x="240" y="282" width="620" height="62" rx="8"/>
+<text class="sub" x="550" y="308" text-anchor="middle">正は core に1つ</text>
+<text class="sub" x="550" y="332" text-anchor="middle">実装は GitHub Copilot、M365 Copilot Studio へは移植</text>
       </svg>
     </div>
     <div class="takeaway">AI に作らせる仕組みではなく、作り方そのものをフェーズとゲートで管理する基盤です</div>
@@ -301,32 +302,36 @@ svg text{font-family:var(--font)}
   </section>
   <section class="slide">
     <div class="kicker">使い方</div>
-    <h1>使い方は、案件フォルダを作ってゲートで承認しながら進めるだけだ</h1>
+    <h1>使い方は3つの操作だけ：案件フォルダを作り、意図を伝え、3回の承認に答える</h1>
     <div class="fig">
-      <svg viewBox="0 0 1100 360" role="img" aria-label="使い方は、案件フォルダを作ってゲートで承認しながら進めるだけだ">
+      <svg viewBox="0 0 1100 360" role="img" aria-label="使い方は3つの操作だけ：案件フォルダを作り、意図を伝え、3回の承認に答える">
         <defs>
           <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#333333"/></marker>
           <marker id="ahk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0F62FE"/></marker>
         </defs>
-<rect class="box-gray" x="120" y="40" width="420" height="280" rx="8"/>
-<text class="lbl" x="330" y="72" text-anchor="middle">works/<案件>/ フォルダ</text>
-<text class="sub" x="150" y="116" text-anchor="start">・ type-diagnosis（型の診断）</text>
-<text class="sub" x="150" y="152" text-anchor="start">・ intent（意図）</text>
-<text class="sub" x="150" y="188" text-anchor="start">・ priority-map（優先順位）</text>
-<text class="sub" x="150" y="224" text-anchor="start">・ outline（目次）</text>
-<text class="sub" x="150" y="260" text-anchor="start">・ slides（本文と完成形）</text>
-<text class="sub" x="150" y="296" text-anchor="start">・ lint-report（検査結果）</text>
-<rect class="box-tint" x="640" y="90" width="340" height="80" rx="8"/>
-<text class="lbl" x="810" y="122" text-anchor="middle">進め方</text>
-<text class="sub" x="810" y="150" text-anchor="middle">フォルダを作る → ゲートで承認</text>
-<rect class="box" x="640" y="200" width="340" height="80" rx="8"/>
-<text class="lbl" x="810" y="232" text-anchor="middle">承認する側の仕事</text>
-<text class="sub" x="810" y="260" text-anchor="middle">G0・G1・G3 の3回だけ</text>
-<line class="arrow-key" x1="545" y1="130" x2="635" y2="130" marker-end="url(#ahk)"/>
-<line class="arrow-key" x1="545" y1="240" x2="635" y2="240" marker-end="url(#ahk)"/>
+<circle cx="80" cy="86" r="20" fill="#0F62FE"/>
+<text x="80" y="94" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">1</text>
+<rect class="box-tint" x="50" y="120" width="320" height="110" rx="8"/>
+<text class="lbl" x="210" y="160" text-anchor="middle">案件フォルダを作る</text>
+<text class="sub" x="210" y="190" text-anchor="middle">works/<案件名>/ を1つ作る</text>
+<line class="arrow-key" x1="374" y1="175" x2="396" y2="175" marker-end="url(#ahk)"/>
+<circle cx="430" cy="86" r="20" fill="#0F62FE"/>
+<text x="430" y="94" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">2</text>
+<rect class="box" x="400" y="120" width="320" height="110" rx="8"/>
+<text class="lbl" x="560" y="160" text-anchor="middle">意図を伝える</text>
+<text class="sub" x="560" y="190" text-anchor="middle">誰に向けた資料か、</text>
+<text class="sub" x="560" y="214" text-anchor="middle">何ができたら成功かを答える</text>
+<line class="arrow-key" x1="724" y1="175" x2="746" y2="175" marker-end="url(#ahk)"/>
+<circle cx="780" cy="86" r="20" fill="#0F62FE"/>
+<text x="780" y="94" text-anchor="middle" font-size="19" font-weight="700" fill="#fff">3</text>
+<rect class="box" x="750" y="120" width="320" height="110" rx="8"/>
+<text class="lbl" x="910" y="160" text-anchor="middle">3回の承認に答える</text>
+<text class="sub" x="910" y="190" text-anchor="middle">G0 意図と型／G1 目次／G3 最終に</text>
+<text class="sub" x="910" y="214" text-anchor="middle">承認か修正で返す</text>
+<text class="sub" x="550" y="286" text-anchor="middle">フォルダの中には、意図・診断・マップ・目次・本文・検査結果が案件の記録として残る</text>
       </svg>
     </div>
-    <div class="takeaway">案件ごとにフォルダが1つ。意図から検査結果まで、全部そこに残ります</div>
+    <div class="takeaway">利用者の操作はこの3つだけです。構成・生成・検査はハーネス側が行います</div>
     
     <div class="deckname">slide-harness 紹介 — AIスロップ対策をプロセスに組み込んだスライド作成基盤</div>
     <div class="pageno"></div>
