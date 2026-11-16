@@ -1,0 +1,10 @@
+{
+  "name": "design-note",
+  "version": "0.1.0",
+  "description": "暖色の紙と明朝見出しのデザイン『note』を提供する見本の拡張（デザイン切り替えの実証用）",
+  "provides": {
+    "types": [],
+    "roles": [],
+    "designs": [{ "slug": "note", "file": "designs/note", "status": "sample" }]
+  }
+}

@@ -11,6 +11,8 @@ extensions/<name>/
   extension.json        # manifest（宣言）
   types/<slug>.md       # 型の定義＋型リード（1ファイルに統合）
   roles/<slug>.md       # ロールの定義
+  designs/<slug>/       # デザイン（テンプレート一式）
+    template.html
 ```
 
 ## manifest（extension.json）
@@ -30,6 +32,18 @@ extensions/<name>/
 - `name` はディレクトリ名と一致させる。`core` と `aidlc` 系の名前は使わない
 - `status` は `sample`（見本・未検証）／`trial`（試走中）／`verified`（試走で検証済み）のいずれか。`verified` への昇格は人間の承認による
 - slug は型・ロールを通じた識別子。core の型 slug（recommendation / pitch / status / results / postmortem / explanation / framing）と衝突させない
+- デザインは `provides.designs` に `{ "slug": "note", "file": "designs/note", "status": "sample" }` の形で宣言する
+
+## デザイン（テンプレート）の契約
+
+拡張が提供するデザインは、標準テンプレートと同じ契約を満たす `template.html` を含むこと（検証スクリプトが検査する）。
+
+- CSS 変数のトークン一式（`--key`、`--ink`、`--ink-sub`、`--line`、`--paper`、`--reg`、`--font`）を `:root` で定義する。スライド本体の CSS と図の部品クラス（box／lbl／sub／arrow 等）はこのトークン経由で色と書体を受ける
+- スライド寸法は 16:9（1280×720 基準）、印刷時は全スライド縦並び（`@media print` で操作 UI を消す）
+- スライドショーと編集のビューア機能（標準テンプレートのスクリプトブロック）を含む
+- デザインの切り替えで内容（タイトル・図・要点）は変えない。デザインは型・内容と直交する層である
+
+デザインの解決順（`core/rendering.md`）：案件が指定した拡張デザイン → 案件固有テンプレート → リポジトリ共有 → 標準。案件がどのデザインを使ったか（拡張名と版を含む）を lint-report に記録する。
 
 ## 型ファイルの必須部品
 

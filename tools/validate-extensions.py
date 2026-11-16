@@ -44,6 +44,24 @@ def main() -> int:
         if manifest.get("name") != ext.name:
             errors.append(f"{ext.name}: manifest の name がディレクトリ名と一致しません")
         provides = manifest.get("provides", {})
+        for item in provides.get("designs", []):
+            slug = item.get("slug", "")
+            rel = item.get("file", "")
+            target = ext / rel / "template.html"
+            where = f"{ext.name}/{rel}"
+            if slug in seen_slugs:
+                errors.append(f"{where}: slug '{slug}' が {seen_slugs[slug]} と重複しています")
+            seen_slugs[slug] = where
+            if item.get("status") not in STATUSES:
+                errors.append(f"{where}: status は sample / trial / verified のいずれかです")
+            if not target.is_file():
+                errors.append(f"{where}: template.html がありません")
+                continue
+            text = target.read_text(encoding="utf-8")
+            for marker in ("--key:", "--ink:", "--paper:", "--font:",
+                           "@media print", "tb-edit", ".slide"):
+                if marker not in text:
+                    errors.append(f"{where}: デザイン契約の要素 '{marker}' がありません")
         for kind, headings in (("types", TYPE_HEADINGS), ("roles", ROLE_HEADINGS)):
             for item in provides.get(kind, []):
                 slug = item.get("slug", "")
@@ -65,7 +83,8 @@ def main() -> int:
                     if h not in text:
                         errors.append(f"{where}: 必須見出し '{h}' がありません")
         print(f"検査: {ext.name} v{manifest.get('version', '?')} "
-              f"(型 {len(provides.get('types', []))} / ロール {len(provides.get('roles', []))})")
+              f"(型 {len(provides.get('types', []))} / ロール {len(provides.get('roles', []))} "
+              f"/ デザイン {len(provides.get('designs', []))})")
     if errors:
         print("\n合成エラー:")
         for e in errors:
