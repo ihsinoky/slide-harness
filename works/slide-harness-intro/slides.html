@@ -465,33 +465,43 @@ svg text{font-family:var(--font)}
     <div class="pageno"></div>
   </section>
   <section class="slide">
-    <div class="kicker">資料の構造</div>
-    <h1>資料は内容・構造・表現の3層でできていて、規約が全層を横断する</h1>
+    <div class="kicker">完成形</div>
+    <h1>完成形は、スライドショーと編集ができる単一 HTML で出てくる</h1>
     <div class="fig">
-      <svg viewBox="0 0 1100 360" role="img" aria-label="資料は内容・構造・表現の3層でできていて、規約が全層を横断する">
+      <svg viewBox="0 0 1100 360" role="img" aria-label="完成形は、スライドショーと編集ができる単一 HTML で出てくる">
         <defs>
           <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#333333"/></marker>
           <marker id="ahk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0F62FE"/></marker>
         </defs>
-<rect class="box-tint" x="140" y="36" width="640" height="66" rx="8"/>
-<text class="lbl" x="270" y="76" text-anchor="start">内容</text>
-<text class="sub" x="765" y="76" text-anchor="end">何を言うか：タイトル・図の中身・要点</text>
-<rect class="box" x="140" y="116" width="640" height="66" rx="8"/>
-<text class="lbl" x="270" y="156" text-anchor="start">構造</text>
-<text class="sub" x="765" y="156" text-anchor="end">どう並べるか：目次と図の形</text>
-<rect class="box-tint" x="140" y="196" width="640" height="66" rx="8"/>
-<text class="lbl" x="270" y="236" text-anchor="start">表現</text>
-<text class="sub" x="765" y="236" text-anchor="end">どう見せるか：色・書体・余白（差し替えはここだけ）</text>
-<line class="arrow-key" x1="460" y1="103" x2="460" y2="113" marker-end="url(#ahk)"/>
-<line class="arrow-key" x1="460" y1="183" x2="460" y2="193" marker-end="url(#ahk)"/>
-<rect class="box-warn" x="820" y="36" width="200" height="226" rx="8"/>
-<text class="lbl" x="920" y="140" text-anchor="middle">規約</text>
-<text class="sub" x="920" y="172" text-anchor="middle">全層を横断</text>
-<text class="sub" x="920" y="200" text-anchor="middle">図解ガイド等</text>
-<text class="sub" x="460" y="306" text-anchor="middle">完成形は、スライドショーと編集ができる単一 HTML</text>
+<rect class="box" x="60" y="30" width="520" height="300" rx="8"/>
+<text class="sub" x="85" y="66">キッカー（章の名前）</text>
+<text class="sub" x="555" y="66" text-anchor="end">枠の見た目全体＝表現</text>
+<rect class="box-tint" x="85" y="80" width="470" height="38" rx="6"/>
+<text class="lbl" x="105" y="105">タイトル（主張文）</text>
+<rect class="box" x="85" y="132" width="470" height="104" rx="6"/>
+<text class="lbl" x="320" y="176" text-anchor="middle">図</text>
+<text class="sub" x="320" y="206" text-anchor="middle">形は構造が、中身は内容が担う</text>
+<rect class="box-gray" x="85" y="250" width="470" height="30" rx="6"/>
+<text class="sub" x="105" y="270">要点1行</text>
+<text class="sub" x="85" y="312">注記・出典 ／ ページ番号</text>
+<line class="arrow" x1="584" y1="71" x2="636" y2="71" marker-end="url(#ah)"/>
+<rect class="box-tint" x="640" y="36" width="400" height="70" rx="8"/>
+<text class="lbl" x="660" y="66">内容</text>
+<text class="sub" x="660" y="92">タイトル・図の中身・要点・注記。案件ごとに作る</text>
+<line class="arrow" x1="584" y1="153" x2="636" y2="153" marker-end="url(#ah)"/>
+<rect class="box" x="640" y="118" width="400" height="70" rx="8"/>
+<text class="lbl" x="660" y="148">構造</text>
+<text class="sub" x="660" y="174">図の形とスライドの並び。型と構成で決まる</text>
+<line class="arrow" x1="584" y1="235" x2="636" y2="235" marker-end="url(#ah)"/>
+<rect class="box-tint" x="640" y="200" width="400" height="70" rx="8"/>
+<text class="lbl" x="660" y="230">表現</text>
+<text class="sub" x="660" y="256">色・書体・余白。差し替えできるのはここだけ</text>
+<rect class="box-gray" x="640" y="282" width="400" height="64" rx="8"/>
+<text class="lbl" x="660" y="310">ファイルの機能</text>
+<text class="sub" x="660" y="336">発表・編集・印刷がこのファイルだけで完結</text>
       </svg>
     </div>
-    <div class="takeaway">差し替えできるのは表現だけです。図解ガイドは規約として作り方を縛ります</div>
+    <div class="takeaway">配布はファイル1つだけ。開けば発表でき、気づいた誤りはその場で直して保存できます</div>
     
     <div class="deckname">slide-harness 紹介 — AIスロップ対策をプロセスに組み込んだスライド作成基盤</div>
     <div class="pageno"></div>
