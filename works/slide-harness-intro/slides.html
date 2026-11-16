@@ -383,6 +383,60 @@ svg text{font-family:var(--font)}
     <div class="pageno"></div>
   </section>
   <section class="slide">
+    <div class="kicker">指摘の蓄積</div>
+    <h1>人間の指摘はパターンとして蓄積され、編集中の資料の途中から先回りで効く</h1>
+    <div class="fig">
+      <svg viewBox="0 0 1100 360" role="img" aria-label="指摘の蓄積ループの図">
+      <rect class="box" x="40" y="26" width="240" height="76"/>
+      <text class="lbl" x="160" y="58" text-anchor="middle">人間の指摘</text>
+      <text class="sub" x="160" y="84" text-anchor="middle">完成形への指摘・疑問</text>
+      <line x1="284" y1="64" x2="296" y2="64" stroke="#0F62FE" stroke-width="3"/>
+      <path d="M296 64 l-9 -5 v10 z" fill="#0F62FE"/>
+      <rect class="box" x="300" y="26" width="240" height="76"/>
+      <text class="lbl" x="420" y="58" text-anchor="middle">パターンに一般化</text>
+      <text class="sub" x="420" y="84" text-anchor="middle">他の資料でも起きうる形に</text>
+      <line x1="544" y1="64" x2="556" y2="64" stroke="#0F62FE" stroke-width="3"/>
+      <path d="M556 64 l-9 -5 v10 z" fill="#0F62FE"/>
+      <rect class="box" x="560" y="26" width="240" height="76"/>
+      <text class="lbl" x="680" y="58" text-anchor="middle">台帳に蓄積</text>
+      <text class="sub" x="680" y="84" text-anchor="middle">review-feedback（F1〜F8）</text>
+      <line x1="804" y1="64" x2="816" y2="64" stroke="#0F62FE" stroke-width="3"/>
+      <path d="M816 64 l-9 -5 v10 z" fill="#0F62FE"/>
+      <rect class="box" x="820" y="26" width="240" height="76"/>
+      <text class="lbl" x="940" y="58" text-anchor="middle">先回りで確認</text>
+      <text class="sub" x="940" y="84" text-anchor="middle">lint と検証の確認項目に</text>
+      <line x1="950" y1="102" x2="950" y2="124" stroke="#0F62FE" stroke-width="3"/>
+      <path d="M950 128 l-5 -9 h10 z" fill="#0F62FE"/>
+      <line x1="290" y1="128" x2="950" y2="128" stroke="#0F62FE" stroke-width="2"/>
+      <line x1="290" y1="128" x2="290" y2="146" stroke="#0F62FE" stroke-width="3"/>
+      <path d="M290 150 l-5 -9 h10 z" fill="#0F62FE"/>
+      <rect class="box-tint" x="40" y="150" width="500" height="58"/>
+      <text class="lbl" x="290" y="176" text-anchor="middle">編集中の資料へ即適用</text>
+      <text class="sub" x="290" y="198" text-anchor="middle">残りのスライドと再検査に、その場で効く</text>
+      <rect class="box-gray" x="560" y="150" width="500" height="58"/>
+      <text class="lbl" x="810" y="176" text-anchor="middle">次の資料にも引き継ぐ</text>
+      <text class="sub" x="810" y="198" text-anchor="middle">フェーズ2・3の定番の確認になる</text>
+      <text class="lbl" x="40" y="248">台帳の実例（この資料への指摘のラリーから）</text>
+      <rect class="box-gray" x="40" y="262" width="240" height="62"/>
+      <text class="lbl" x="56" y="290">F1 図の列挙化</text>
+      <text class="sub" x="56" y="312">主張が内訳に埋もれる</text>
+      <rect class="box-gray" x="300" y="262" width="240" height="62"/>
+      <text class="lbl" x="316" y="290">F2 メッセージの逸脱</text>
+      <text class="sub" x="316" y="312">outline と違う話になる</text>
+      <rect class="box-gray" x="560" y="262" width="240" height="62"/>
+      <text class="lbl" x="576" y="290">F5 はみ出し・重なり</text>
+      <text class="sub" x="576" y="312">機械 lint で実測する</text>
+      <rect class="box-gray" x="820" y="262" width="240" height="62"/>
+      <text class="lbl" x="836" y="290">F7 変更への追随漏れ</text>
+      <text class="sub" x="836" y="312">古い記述が残る</text>
+      </svg>
+    </div>
+    <div class="takeaway">同じ指摘を2回受けないための仕組みです。この資料でも、機械 lint と outline 検査は生まれたその場で、この資料自身のはみ出しとズレを検出しました</div>
+    <div class="note">台帳は core/review-feedback.md にあり、使う人の指摘が増えるほど育ちます。パターンの追加は案件の記録に残ります</div>
+    <div class="deckname">slide-harness 紹介 — AIスロップ対策をプロセスに組み込んだスライド作成基盤</div>
+    <div class="pageno"></div>
+  </section>
+  <section class="slide">
     <div class="kicker">使い方</div>
     <h1>使い方は3つの操作だけ：案件フォルダを作り、意図を伝え、3回の承認に答える</h1>
     <div class="fig">
