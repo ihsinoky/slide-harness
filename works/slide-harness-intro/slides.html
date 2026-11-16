@@ -330,22 +330,29 @@ svg text{font-family:var(--font)}
           <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#333333"/></marker>
           <marker id="ahk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0F62FE"/></marker>
         </defs>
-<rect class="box-tint" x="200" y="40" width="700" height="62" rx="8"/>
-<text class="lbl" x="330" y="78" text-anchor="middle">視覚 lint</text>
-<text class="sub" x="700" y="78" text-anchor="middle">図の形・文字量・対応の示し方（図解規約）</text>
-<rect class="box" x="200" y="116" width="700" height="62" rx="8"/>
-<text class="lbl" x="330" y="154" text-anchor="middle">副型 lint</text>
-<text class="sub" x="700" y="154" text-anchor="middle">副型の成功条件（例：入口があるか）</text>
-<rect class="box" x="200" y="192" width="700" height="62" rx="8"/>
-<text class="lbl" x="330" y="230" text-anchor="middle">主型 lint</text>
-<text class="sub" x="700" y="230" text-anchor="middle">主型固有の失敗をしていないか</text>
-<rect class="box" x="200" y="268" width="700" height="62" rx="8"/>
-<text class="lbl" x="330" y="306" text-anchor="middle">共通 anti-slop</text>
-<text class="sub" x="700" y="306" text-anchor="middle">根拠のない数値・中身のない言い換え等</text>
-<text class="sub" x="550" y="352" text-anchor="middle"></text>
+<rect class="box-tint" x="40" y="120" width="170" height="110" rx="8"/>
+<text class="lbl" x="125" y="162" text-anchor="middle">生成パス</text>
+<text class="sub" x="125" y="192" text-anchor="middle">AI が作る</text>
+<text class="sub" x="125" y="218" text-anchor="middle">採点はしない</text>
+<text class="sub" x="125" y="256" text-anchor="middle">落ちたら作り直し</text>
+<line class="arrow-key" x1="214" y1="175" x2="254" y2="175" marker-end="url(#ahk)"/>
+<rect class="box" x="260" y="24" width="800" height="312" rx="10"/>
+<text class="lbl" x="284" y="58">検査パス（生成とは別のパス。全層に合格するまで次へ進めない）</text>
+<rect class="box" x="284" y="72" width="752" height="54" rx="8"/>
+<text class="lbl" x="300" y="106">共通 anti-slop</text>
+<text class="sub" x="520" y="106">根拠のない数値や誇張、中身のない言い換えを落とす</text>
+<rect class="box" x="284" y="134" width="752" height="54" rx="8"/>
+<text class="lbl" x="300" y="168">主型 lint</text>
+<text class="sub" x="520" y="168">型の成功条件を満たさない内容を落とす（⑥では説明できない構成）</text>
+<rect class="box" x="284" y="196" width="752" height="54" rx="8"/>
+<text class="lbl" x="300" y="230">副型 lint</text>
+<text class="sub" x="520" y="230">副型に必要な要素の欠けを落とす（②では、試す入口のない締め）</text>
+<rect class="box-tint" x="284" y="258" width="752" height="54" rx="8"/>
+<text class="lbl" x="300" y="292">視覚 lint</text>
+<text class="sub" x="520" y="292">文字のはみ出し、図と文章の食い違い、読み違える図を落とす</text>
       </svg>
     </div>
-    <div class="takeaway">作った本人（生成パス）に採点させません。落ちたら該当スライドだけ差し戻します</div>
+    <div class="takeaway">層ごとに落とすものが違うため、検査を分けるほどスロップの逃げ道が減ります。全層の合格が G2 です</div>
     
     <div class="deckname">slide-harness 紹介 — AIスロップ対策をプロセスに組み込んだスライド作成基盤</div>
     <div class="pageno"></div>
