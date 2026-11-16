@@ -151,35 +151,46 @@ svg text{font-family:var(--font)}
   </section>
   <section class="slide">
     <div class="kicker">なぜプロセスか</div>
-    <h1>プロセスが要る理由は、失敗の原因が生成能力ではなく意図・検査・直し方の欠落にあるからだ</h1>
+    <h1>AI スライドのよくある失敗は、意図合わせ・検査・直し方の工程がないことから起きる</h1>
     <div class="fig">
-      <svg viewBox="0 0 1100 360" role="img" aria-label="プロセスが要る理由は、失敗の原因が生成能力ではなく意図・検査・直し方の欠落にあるからだ">
+      <svg viewBox="0 0 1100 360" role="img" aria-label="AI スライドのよくある失敗は、意図合わせ・検査・直し方の工程がないことから起きる">
         <defs>
           <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#333333"/></marker>
           <marker id="ahk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0F62FE"/></marker>
         </defs>
-<rect class="box-gray" x="60" y="30" width="440" height="44" rx="8"/>
-<text class="lbl" x="280" y="58" text-anchor="middle">失敗の原因</text>
-<rect class="box-gray" x="600" y="30" width="440" height="44" rx="8"/>
-<text class="lbl" x="820" y="58" text-anchor="middle">プロセス側の対策</text>
-<rect class="box-warn" x="60" y="92" width="440" height="66" rx="8"/>
-<text class="sub" x="280" y="132" text-anchor="middle">意図のずれ（頼み方と成功条件が曖昧）</text>
-<rect class="box-tint" x="600" y="92" width="440" height="66" rx="8"/>
-<text class="sub" x="820" y="132" text-anchor="middle">フェーズ0の聞き取りと G0 承認</text>
-<line class="arrow-key" x1="505" y1="125" x2="595" y2="125" marker-end="url(#ahk)"/>
-<rect class="box-warn" x="60" y="176" width="440" height="66" rx="8"/>
-<text class="sub" x="280" y="216" text-anchor="middle">自己採点の検査（作った側が合格を出す）</text>
-<rect class="box-tint" x="600" y="176" width="440" height="66" rx="8"/>
-<text class="sub" x="820" y="216" text-anchor="middle">生成と lint を別パスに分離</text>
-<line class="arrow-key" x1="505" y1="209" x2="595" y2="209" marker-end="url(#ahk)"/>
-<rect class="box-warn" x="60" y="260" width="440" height="66" rx="8"/>
-<text class="sub" x="280" y="300" text-anchor="middle">直し方が全体作り直ししかない</text>
-<rect class="box-tint" x="600" y="260" width="440" height="66" rx="8"/>
-<text class="sub" x="820" y="300" text-anchor="middle">変更の種類ごとに、戻るゲートを決める</text>
-<line class="arrow-key" x1="505" y1="293" x2="595" y2="293" marker-end="url(#ahk)"/>
+<rect class="box-warn" x="40" y="26" width="400" height="42" rx="8"/>
+<text class="lbl" x="240" y="54" text-anchor="middle">よくある問題</text>
+<rect class="box-gray" x="500" y="26" width="250" height="42" rx="8"/>
+<text class="lbl" x="625" y="54" text-anchor="middle">なぜ起きるか</text>
+<rect class="box-gray" x="810" y="26" width="250" height="42" rx="8"/>
+<text class="lbl" x="935" y="54" text-anchor="middle">プロセス側の対策</text>
+<rect class="box-warn" x="40" y="86" width="400" height="66" rx="8"/>
+<text class="sub" x="240" y="126" text-anchor="middle">頼んだつもりと違う資料が出てくる</text>
+<rect class="box" x="500" y="86" width="250" height="66" rx="8"/>
+<text class="sub" x="625" y="126" text-anchor="middle">意図合わせの工程がない</text>
+<rect class="box-tint" x="810" y="86" width="250" height="66" rx="8"/>
+<text class="sub" x="935" y="126" text-anchor="middle">フェーズ0の聞き取りと G0</text>
+<line class="arrow-key" x1="445" y1="119" x2="495" y2="119" marker-end="url(#ahk)"/>
+<line class="arrow-key" x1="755" y1="119" x2="805" y2="119" marker-end="url(#ahk)"/>
+<rect class="box-warn" x="40" y="170" width="400" height="66" rx="8"/>
+<text class="sub" x="240" y="210" text-anchor="middle">もっともらしいが、中身のないスライドばかり</text>
+<rect class="box" x="500" y="170" width="250" height="66" rx="8"/>
+<text class="sub" x="625" y="210" text-anchor="middle">検査が作った側の自己採点</text>
+<rect class="box-tint" x="810" y="170" width="250" height="66" rx="8"/>
+<text class="sub" x="935" y="210" text-anchor="middle">生成と lint を別パスに分離</text>
+<line class="arrow-key" x1="445" y1="203" x2="495" y2="203" marker-end="url(#ahk)"/>
+<line class="arrow-key" x1="755" y1="203" x2="805" y2="203" marker-end="url(#ahk)"/>
+<rect class="box-warn" x="40" y="254" width="400" height="66" rx="8"/>
+<text class="sub" x="240" y="294" text-anchor="middle">一部を直したいだけなのに、全部作り直しになる</text>
+<rect class="box" x="500" y="254" width="250" height="66" rx="8"/>
+<text class="sub" x="625" y="294" text-anchor="middle">直し方の決まりがない</text>
+<rect class="box-tint" x="810" y="254" width="250" height="66" rx="8"/>
+<text class="sub" x="935" y="294" text-anchor="middle">変更の種類ごとに戻るゲート</text>
+<line class="arrow-key" x1="445" y1="287" x2="495" y2="287" marker-end="url(#ahk)"/>
+<line class="arrow-key" x1="755" y1="287" x2="805" y2="287" marker-end="url(#ahk)"/>
       </svg>
     </div>
-    <div class="takeaway">原因と対策は1対1で対応します。モデルの性能競争ではなく、欠落を埋める設計です</div>
+    <div class="takeaway">問題・原因・対策は1対1で対応します。原因はモデルの性能ではなく、工程の欠落です</div>
     
     <div class="deckname">slide-harness 紹介 — AIスロップ対策をプロセスに組み込んだスライド作成基盤</div>
     <div class="pageno"></div>
