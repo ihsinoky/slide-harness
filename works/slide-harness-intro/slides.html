@@ -234,35 +234,41 @@ svg text{font-family:var(--font)}
     <div class="pageno"></div>
   </section>
   <section class="slide">
-    <div class="kicker">型</div>
-    <h1>型リードが、スコア基準・構成・検査の物差しを型ごとに切り替える</h1>
+    <div class="kicker">標準の仕組み</div>
+    <h1>標準の仕組みは core の部品でできていて、案件ごとに作るのは内容だけだ</h1>
     <div class="fig">
-      <svg viewBox="0 0 1100 360" role="img" aria-label="型リードが、スコア基準・構成・検査の物差しを型ごとに切り替える">
+      <svg viewBox="0 0 1100 360" role="img" aria-label="標準の仕組みは core の部品でできていて、案件ごとに作るのは内容だけだ">
         <defs>
           <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#333333"/></marker>
           <marker id="ahk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0F62FE"/></marker>
         </defs>
-<rect class="box-tint" x="400" y="130" width="300" height="100" rx="8"/>
-<text class="lbl" x="550" y="172" text-anchor="middle">型リード</text>
-<text class="sub" x="550" y="202" text-anchor="middle">型ごとに1人、全フェーズに常駐</text>
-<rect class="box" x="60" y="40" width="260" height="56" rx="8"/>
-<text class="sub" x="190" y="75" text-anchor="middle">ミッション</text>
-<rect class="box" x="420" y="40" width="260" height="56" rx="8"/>
-<text class="sub" x="550" y="75" text-anchor="middle">観点</text>
-<rect class="box" x="780" y="40" width="260" height="56" rx="8"/>
-<text class="sub" x="910" y="75" text-anchor="middle">スコア基準</text>
-<rect class="box" x="240" y="270" width="300" height="56" rx="8"/>
-<text class="sub" x="390" y="305" text-anchor="middle">典型構成と疑問チェーン</text>
-<rect class="box" x="640" y="270" width="260" height="56" rx="8"/>
-<text class="sub" x="770" y="305" text-anchor="middle">型固有 lint</text>
-<line class="arrow-key" x1="300" y1="96" x2="440" y2="128" marker-end="url(#ahk)"/>
-<line class="arrow-key" x1="550" y1="96" x2="550" y2="126" marker-end="url(#ahk)"/>
-<line class="arrow-key" x1="800" y1="96" x2="660" y2="128" marker-end="url(#ahk)"/>
-<line class="arrow-key" x1="440" y1="270" x2="500" y2="234" marker-end="url(#ahk)"/>
-<line class="arrow-key" x1="700" y1="270" x2="620" y2="234" marker-end="url(#ahk)"/>
+<rect class="box" x="40" y="16" width="640" height="328" rx="10"/>
+<text class="lbl" x="64" y="50">core（正はここに1つ）</text>
+<rect class="box-tint" x="60" y="64" width="600" height="60" rx="8"/>
+<text class="lbl" x="80" y="90">型と型リード ×7</text>
+<text class="sub" x="80" y="114">型ごとの物差し（観点／スコア基準／構成／型固有 lint）</text>
+<rect class="box" x="60" y="136" width="600" height="60" rx="8"/>
+<text class="lbl" x="80" y="162">ロール</text>
+<text class="sub" x="80" y="186">ファシリテータ／主型リード／副型リード（最大1つ）</text>
+<rect class="box" x="60" y="208" width="600" height="60" rx="8"/>
+<text class="lbl" x="80" y="234">プロセスと規約</text>
+<text class="sub" x="80" y="258">4フェーズと承認ゲート／図解規約（全層を横断し、不変）</text>
+<rect class="box" x="60" y="280" width="600" height="52" rx="8"/>
+<text class="lbl" x="80" y="303">テンプレート</text>
+<text class="sub" x="80" y="327">標準デザイン（IBM Carbon）＝表現の層</text>
+<rect class="box" x="720" y="64" width="340" height="124" rx="8"/>
+<text class="lbl" x="740" y="94">実行環境（バインディング）</text>
+<text class="sub" x="740" y="124">GitHub Copilot（現行の正）</text>
+<text class="sub" x="740" y="152">M365 Copilot Studio（同じ core を移植）</text>
+<rect class="box" x="720" y="208" width="340" height="124" rx="8"/>
+<text class="lbl" x="740" y="238">案件フォルダ（works/＜案件＞）</text>
+<text class="sub" x="740" y="268">案件ごとに作るのは内容だけ</text>
+<text class="sub" x="740" y="296">成果物と記録がここに残る</text>
+<line class="arrow-key" x1="684" y1="126" x2="716" y2="126" marker-end="url(#ahk)"/>
+<line class="arrow" x1="716" y1="270" x2="684" y2="270" marker-end="url(#ah)"/>
       </svg>
     </div>
-    <div class="takeaway">型が決まると、候補の並び・スライドの順序・検査の観点がまとめて切り替わります</div>
+    <div class="takeaway">型リードが型ごとの物差しを持つため、同じプロセスでも型が決まれば候補の並び・構成・検査がまとめて切り替わります</div>
     
     <div class="deckname">slide-harness 紹介 — AIスロップ対策をプロセスに組み込んだスライド作成基盤</div>
     <div class="pageno"></div>
@@ -276,24 +282,42 @@ svg text{font-family:var(--font)}
           <marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#333333"/></marker>
           <marker id="ahk" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6 Z" fill="#0F62FE"/></marker>
         </defs>
-<rect class="box" x="60" y="40" width="300" height="130" rx="8"/>
-<text class="lbl" x="210" y="72" text-anchor="middle">拡張（extensions/）</text>
-<text class="sub" x="210" y="104" text-anchor="middle">型／ロール／デザイン</text>
-<text class="sub" x="210" y="132" text-anchor="middle">manifest で宣言</text>
-<rect class="box-gray" x="60" y="210" width="300" height="90" rx="8"/>
-<text class="lbl" x="210" y="242" text-anchor="middle">取り込み（インポート）</text>
-<text class="sub" x="210" y="270" text-anchor="middle">パワポ／HTML → 色と書体</text>
-<rect class="box-tint" x="740" y="90" width="300" height="130" rx="8"/>
-<text class="lbl" x="890" y="122" text-anchor="middle">core（正）</text>
-<text class="sub" x="890" y="154" text-anchor="middle">書き換え禁止</text>
-<text class="sub" x="890" y="182" text-anchor="middle">外せば素の core に戻る</text>
-<line class="arrow-key" x1="365" y1="120" x2="735" y2="140" marker-end="url(#ahk)"/>
-<text class="sub" x="550" y="105" text-anchor="middle">導入時に合成（足すだけ）</text>
-<line class="arrow-key" x1="365" y1="240" x2="735" y2="190" marker-end="url(#ahk)"/>
+<rect class="box" x="40" y="16" width="640" height="328" rx="10"/>
+<text class="lbl" x="64" y="50">core（正はここに1つ）</text>
+<rect class="box-tint" x="60" y="64" width="600" height="60" rx="8"/>
+<text class="lbl" x="80" y="90">型と型リード ×7</text>
+<text class="sub" x="80" y="114">型ごとの物差し（観点／スコア基準／構成／型固有 lint）</text>
+<rect style="fill:#0F62FE" x="516" y="76" width="128" height="36" rx="18"/>
+<text x="580" y="100" text-anchor="middle" style="fill:#FFFFFF;font-size:15px;font-weight:700">＋ 型を足せる</text>
+<rect class="box-tint" x="60" y="136" width="600" height="60" rx="8"/>
+<text class="lbl" x="80" y="162">ロール</text>
+<text class="sub" x="80" y="186">ファシリテータ／主型リード／副型リード（最大1つ）</text>
+<rect style="fill:#0F62FE" x="500" y="148" width="144" height="36" rx="18"/>
+<text x="572" y="172" text-anchor="middle" style="fill:#FFFFFF;font-size:15px;font-weight:700">＋ ロールを足せる</text>
+<rect class="box-gray" x="60" y="208" width="600" height="60" rx="8"/>
+<text class="lbl" x="80" y="234">プロセスと規約</text>
+<text class="sub" x="80" y="258">4フェーズと承認ゲート／図解規約（全層を横断し、不変）</text>
+<rect style="fill:#8D8D8D" x="532" y="220" width="112" height="36" rx="18"/>
+<text x="588" y="244" text-anchor="middle" style="fill:#FFFFFF;font-size:15px;font-weight:700">変えられない</text>
+<rect class="box-tint" x="60" y="280" width="600" height="52" rx="8"/>
+<text class="lbl" x="80" y="303">テンプレート</text>
+<text class="sub" x="80" y="327">標準デザイン（IBM Carbon）＝表現の層</text>
+<rect style="fill:#0F62FE" x="484" y="288" width="160" height="36" rx="18"/>
+<text x="564" y="312" text-anchor="middle" style="fill:#FFFFFF;font-size:15px;font-weight:700">＋ デザインを足せる</text>
+<rect class="box" x="720" y="64" width="340" height="124" rx="8"/>
+<text class="lbl" x="740" y="94">拡張の見本（型）</text>
+<text class="sub" x="740" y="124">extensions/record-archive</text>
+<text class="sub" x="740" y="152">記録・参照型（status: sample）</text>
+<rect class="box" x="720" y="208" width="340" height="124" rx="8"/>
+<text class="lbl" x="740" y="238">拡張の見本（デザイン）</text>
+<text class="sub" x="740" y="268">extensions/design-note（sample）</text>
+<text class="sub" x="740" y="296">パワポ／HTML から色と書体を取り込み</text>
+<line class="arrow-key" x1="716" y1="100" x2="684" y2="100" marker-end="url(#ahk)"/>
+<line class="arrow-key" x1="716" y1="300" x2="684" y2="300" marker-end="url(#ahk)"/>
       </svg>
     </div>
-    <div class="takeaway">拡張は足すだけです。検証を通ったものだけが候補に入ります</div>
-    <div class="note">取り込みで得るのは色と書体のトークンだけです。ロゴやレイアウトは再現しません</div>
+    <div class="takeaway">変えられるのは印のついた3か所だけ。合成は加算のみで、名前が衝突したら止まります</div>
+    <div class="note">拡張を外せば素の core に戻ります。検証を通った拡張だけがフェーズ0の候補に入り、使った拡張は診断記録に残ります</div>
     <div class="deckname">slide-harness 紹介 — AIスロップ対策をプロセスに組み込んだスライド作成基盤</div>
     <div class="pageno"></div>
   </section>
