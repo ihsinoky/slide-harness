@@ -115,4 +115,4 @@ git config core.hooksPath hooks
 
 - プロセスの正は `core/` です。エージェント定義はその参照で、矛盾したら core が優先します
 - 骨格（フェーズ・ゲート・拡張）は AI-DLC（awslabs/aidlc-workflows、MIT-0）の考え方を借りています。この基盤の固有の中身は、型と型リード、anti-slop と指摘ナレッジ、図解規約、デザインの仕組みです
-- M365 Copilot Studio へは、core をナレッジと指示文に写して移植する想定です
+- M365 Copilot Studio へは、同じ core を写して移植します。手順と対応表は `bindings/copilot-studio/README.md` にあります（GitHub Copilot ハーネスで作り、スキルとフックを対応させる方針）
