@@ -125,7 +125,7 @@ svg text{font-family:var(--font)}
 <line class="arrow-key" x1="272" y1="155" x2="296" y2="155" marker-end="url(#ahk)"/>
 <rect class="box" x="300" y="110" width="230" height="90" rx="8"/>
 <text class="lbl" x="415" y="148" text-anchor="middle">フェーズ1 構成</text>
-<text class="sub" x="415" y="178" text-anchor="middle">タイトル目次</text>
+<text class="sub" x="415" y="178" text-anchor="middle">ストーリーラインと目次</text>
 <line class="arrow-key" x1="532" y1="155" x2="556" y2="155" marker-end="url(#ahk)"/>
 <rect class="box" x="560" y="110" width="230" height="90" rx="8"/>
 <text class="lbl" x="675" y="148" text-anchor="middle">フェーズ2 生成</text>
@@ -140,12 +140,56 @@ svg text{font-family:var(--font)}
 <text x="571" y="75" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">G1</text>
 <rect x="945" y="52" width="52" height="34" rx="17" fill="#0F62FE"/>
 <text x="971" y="75" text-anchor="middle" font-size="16" font-weight="700" fill="#fff">G3</text>
-<text class="sub" x="550" y="262" text-anchor="middle">承認は G0（意図と型）・G1（タイトル目次）・G3（最終）の3回</text>
+<text class="sub" x="550" y="262" text-anchor="middle">承認は G0（意図と型）・G1（ストーリーラインと目次）・G3（最終）の3回</text>
 <text class="sub" x="550" y="292" text-anchor="middle">各フェーズの成果物が案件フォルダに残り、後から経緯をたどれる</text>
       </svg>
     </div>
     <div class="takeaway">承認は意図・目次・最終の3回だけ。途中経過はすべてファイルに残ります</div>
     
+    <div class="deckname">slide-harness 紹介 — AIスロップ対策をプロセスに組み込んだスライド作成基盤</div>
+    <div class="pageno"></div>
+  </section>
+  <section class="slide">
+    <div class="kicker">ストーリーライン</div>
+    <h1>主張の列（ストーリーライン）を生成の前に固めるので、話の筋は最初から一本に通っている</h1>
+    <div class="fig">
+      <svg viewBox="0 0 1100 360" role="img" aria-label="主張の点と、接続で結ばれたストーリーラインの図">
+    <rect class="box" x="40" y="24" width="490" height="268"/>
+    <text class="lbl" x="285" y="52" text-anchor="middle">点のまま（順番に理由がない）</text>
+    <circle cx="110" cy="110" r="9" fill="#8D8D8D"/>
+    <text class="sub" x="126" y="115">主張A</text>
+    <circle cx="200" cy="195" r="9" fill="#8D8D8D"/>
+    <text class="sub" x="216" y="200">主張B</text>
+    <circle cx="300" cy="120" r="9" fill="#8D8D8D"/>
+    <text class="sub" x="316" y="125">主張C</text>
+    <circle cx="390" cy="200" r="9" fill="#8D8D8D"/>
+    <text class="sub" x="406" y="205">主張D</text>
+    <circle cx="428" cy="100" r="9" fill="#8D8D8D"/>
+    <text class="sub" x="444" y="105">主張E</text>
+    <text class="sub" x="285" y="262" text-anchor="middle">並べ替え放題＝話の筋が無い</text>
+    <rect class="box" x="570" y="24" width="490" height="268"/>
+    <text class="lbl" x="815" y="52" text-anchor="middle">ストーリーライン（先に固める）</text>
+    <line x1="620" y1="170" x2="1010" y2="170" stroke="#0F62FE" stroke-width="3"/>
+    <text class="sub" x="685" y="140" text-anchor="middle">疑問</text>
+    <text class="sub" x="775" y="140" text-anchor="middle">対比</text>
+    <text class="sub" x="865" y="140" text-anchor="middle">因果</text>
+    <text class="sub" x="955" y="140" text-anchor="middle">展開</text>
+    <circle cx="640" cy="170" r="10" fill="#0F62FE"/>
+    <circle cx="730" cy="170" r="10" fill="#0F62FE"/>
+    <circle cx="820" cy="170" r="10" fill="#0F62FE"/>
+    <circle cx="910" cy="170" r="10" fill="#0F62FE"/>
+    <circle cx="1000" cy="170" r="10" fill="#0F62FE"/>
+    <text class="sub" x="640" y="205" text-anchor="middle">主張1</text>
+    <text class="sub" x="730" y="205" text-anchor="middle">主張2</text>
+    <text class="sub" x="820" y="205" text-anchor="middle">主張3</text>
+    <text class="sub" x="910" y="205" text-anchor="middle">主張4</text>
+    <text class="sub" x="1000" y="205" text-anchor="middle">主張5</text>
+    <text class="sub" x="815" y="262" text-anchor="middle">接続が言葉で書けるかを、通読で確かめる</text>
+    <text class="lbl" x="550" y="330" text-anchor="middle" fill="#0F62FE">G1 では、この線そのものを承認する</text>
+      </svg>
+    </div>
+    <div class="takeaway">並びの必然性は、図を描く前に主張と接続の文章だけで決めます。線を先に固めるので、生成の後に構成が崩れて作り直すことがありません</div>
+    <div class="note">この資料でも、主張と接続の一覧（storyline.md）を案件フォルダに残し、G1 で承認しました</div>
     <div class="deckname">slide-harness 紹介 — AIスロップ対策をプロセスに組み込んだスライド作成基盤</div>
     <div class="pageno"></div>
   </section>
@@ -342,7 +386,7 @@ svg text{font-family:var(--font)}
   </section>
   <section class="slide">
     <div class="kicker">検査</div>
-    <h1>作った AI には採点させない。生成と検査を分け、検査は層ごとに違う欠陥を落とす</h1>
+    <h1>作った AI には採点させない。生成と検査を分け、検査は1回のパスで層ごとの欠陥を落とす</h1>
     <div class="fig">
       <svg viewBox="0 0 1100 360" role="img" aria-label="生成パスと検査パスの図">
     <rect class="box" x="40" y="24" width="300" height="268"/>
@@ -354,11 +398,11 @@ svg text{font-family:var(--font)}
     <text class="lbl" x="190" y="178" text-anchor="middle">採点はしない</text>
     <text class="sub" x="190" y="202" text-anchor="middle">作った側は合否を決めない</text>
     <text class="sub" x="190" y="252" text-anchor="middle">落ちたら作り直し</text>
-    <text class="sub" x="190" y="274" text-anchor="middle">直したら全層を再検査</text>
+    <text class="sub" x="190" y="274" text-anchor="middle">直したら変更分だけ再検査</text>
     <line x1="344" y1="150" x2="372" y2="150" stroke="#0F62FE" stroke-width="3"/>
     <path d="M372 150 l-10 -5 v10 z" fill="#0F62FE"/>
     <rect class="box" x="380" y="24" width="680" height="268"/>
-    <text class="lbl" x="720" y="52" text-anchor="middle">検査パス（生成とは別のパス）</text>
+    <text class="lbl" x="720" y="52" text-anchor="middle">検査パス（別のパス・1回で全層）</text>
     <rect class="box-gray" x="400" y="66" width="640" height="38"/>
     <text class="lbl" x="420" y="91">機械 lint</text>
     <text class="sub" x="600" y="91">構造とはみ出し・重なりを実測で落とす（G2 の前提）</text>
@@ -373,12 +417,12 @@ svg text{font-family:var(--font)}
     <text class="sub" x="600" y="223">副型に必要な要素の欠けを落とす（②では行動の入口）</text>
     <rect class="box-gray" x="400" y="242" width="640" height="38"/>
     <text class="lbl" x="420" y="267">目視</text>
-    <text class="sub" x="600" y="267">読み違える図、図と文章の食い違いを落とす</text>
+    <text class="sub" x="600" y="267">読み違える図と食い違いを落とす（全枚は節目のみ）</text>
     <text class="lbl" x="720" y="316" text-anchor="middle" fill="#0F62FE">全層の合格 ＝ G2</text>
     </svg>
     </div>
     <div class="takeaway">作る側と落とす側を分けるから、スロップが残りません。機械で落とせる欠陥は機械が、判断が要る欠陥は層ごとの物差しが落とし、全層の合格が G2 です</div>
-    <div class="note">構造と幾何の検査は機械 lint が実測で判定し、コミット時にもフックで強制されます。判断が要る層の検査は、作り手とは別のパスが担います</div>
+    <div class="note">構造と幾何の検査は機械 lint が実測で判定し、コミット時にもフックで強制されます。判断が要る層の検査は、作り手とは別のパスが1回でまとめて判定します。変更時の再検査は、変更したスライドだけが対象です（差分 lint）</div>
     <div class="deckname">slide-harness 紹介 — AIスロップ対策をプロセスに組み込んだスライド作成基盤</div>
     <div class="pageno"></div>
   </section>
@@ -487,7 +531,7 @@ svg text{font-family:var(--font)}
 <line class="arrow-key" x1="272" y1="155" x2="296" y2="155" marker-end="url(#ahk)"/>
 <rect class="box" x="300" y="110" width="230" height="90" rx="8"/>
 <text class="lbl" x="415" y="148" text-anchor="middle">フェーズ1 構成</text>
-<text class="sub" x="415" y="178" text-anchor="middle">タイトル目次</text>
+<text class="sub" x="415" y="178" text-anchor="middle">ストーリーラインと目次</text>
 <line class="arrow-key" x1="532" y1="155" x2="556" y2="155" marker-end="url(#ahk)"/>
 <rect class="box" x="560" y="110" width="230" height="90" rx="8"/>
 <text class="lbl" x="675" y="148" text-anchor="middle">フェーズ2 生成</text>
@@ -511,7 +555,7 @@ svg text{font-family:var(--font)}
 <text class="sub" x="415" y="318" text-anchor="middle">追加・削除・並べ替え</text>
 <rect class="box-warn" x="560" y="262" width="230" height="72" rx="8"/>
 <text class="lbl" x="675" y="292" text-anchor="middle">表現の変更</text>
-<text class="sub" x="675" y="318" text-anchor="middle">文言・図の微修正</text>
+<text class="sub" x="675" y="318" text-anchor="middle">微修正は差分 lint で</text>
 <rect class="box-gray" x="820" y="262" width="230" height="72" rx="8"/>
 <text class="sub" x="935" y="292" text-anchor="middle">検証は直しのたびに</text>
 <text class="sub" x="935" y="318" text-anchor="middle">再実施する</text>
@@ -578,7 +622,7 @@ svg text{font-family:var(--font)}
         </defs>
 <rect class="box-tint" x="60" y="36" width="980" height="96" rx="8"/>
 <text class="lbl" x="550" y="76" text-anchor="middle">入口：まず小さい資料を1件、回してみる</text>
-<text class="sub" x="550" y="106" text-anchor="middle">案件フォルダを作り、意図を伝え、3回の承認に答えるだけ（9枚目）</text>
+<text class="sub" x="550" y="106" text-anchor="middle">案件フォルダを作り、意図を伝え、3回の承認に答えるだけ（10枚目）</text>
 <text class="sub" x="550" y="162" text-anchor="middle">回してみた実績が、試走3件です</text>
 <rect class="box" x="60" y="182" width="320" height="130" rx="8"/>
 <text class="lbl" x="220" y="218" text-anchor="middle">試走1号</text>
